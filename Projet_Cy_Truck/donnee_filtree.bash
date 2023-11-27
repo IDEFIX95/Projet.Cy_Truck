@@ -34,7 +34,7 @@ fi
 
 if (( "$option_oblig" < 2 )); then
     echo "pas assez d'arguments dans la ligne de commande"
-    #exit 1
+    exit 1
 fi
 
 if [[ ! -d "$dossier_images" && ! -d "$dossier_temp" ]];then
