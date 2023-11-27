@@ -1,0 +1,7 @@
+Bienvenue sur le fichier d'aide du Projet Cy Truck 2023/2024
+
+Tout d'abord comment lancer le programme avant meme de choisir une ou des options :
+    Etape 1 : Veuillez taper dans le terminal la ligne suivant "./donnee_filtre.bash" suivit du chemin vers le quelle ce trouve le fichier de donnée.
+
+    La Liste des options disponible :
+        -> L'option "-h" aide qui vous permet d'avoir accée à ce fichier et de vous montrer jusqu'ou vous pouvez aller en terme d'option pour ce Projet.
