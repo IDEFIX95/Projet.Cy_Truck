@@ -4,7 +4,7 @@
 #cd ..
 
 fichier_d_entrer="data/data.csv"
-fichier_d_aide="help.txt"
+fichier_d_aide="progc/help.txt"
 dossier_temp="temp"
 dossier_images="images"
 option_oblig=0
@@ -17,8 +17,8 @@ for i in $* ;do                             # La condition qui me permet de lanc
        option_oblig=$(("$option_oblig"+1))
     fi
     if [ "$i" == "-h" ];then
-        echo "un fichier help est apparue dans le dossier progc"
-        cat progc/help.txt
+        echo -e "Le fichier help est apparue dans le dossier progc\n"
+        gedit "$fichier_d_aide"
         exit 1
     fi
 done
@@ -36,6 +36,8 @@ if (( "$option_oblig" < 2 )); then
     echo "pas assez d'arguments dans la ligne de commande"
     exit 1
 fi
+
+
 
 if [[ ! -d "$dossier_images" && ! -d "$dossier_temp" ]];then
     mkdir images
