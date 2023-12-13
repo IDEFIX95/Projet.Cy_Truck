@@ -32,12 +32,33 @@ else
 fi
 
 
-if (( "$option_oblig" < 2 )); then
-    echo "pas assez d'arguments dans la ligne de commande"
-    exit 1
+#if (( "$option_oblig" < 2 )); then
+#    echo "pas assez d'arguments dans la ligne de commande"
+#    exit 1
+#fi
+
+# Vérifier si le fichier source C existe
+if [ -e "progc/main.c" ]; then
+    echo "Le fichier source C main.c est présent."
+else
+    echo "Le fichier source C main.c n'est pas trouvé. Lancement de la compilation."
+
+    # Se déplacer dans le répertoire progc
+    cd progc
+
+    # Compilation du fichier C
+    gcc -o main main.c
+
+    # Vérification du statut de la compilation
+    if [ $? -eq 0 ]; then
+        echo "La compilation s'est bien déroulée. L'exécutable maina été créé."
+    else
+        echo "Erreur lors de la compilation."
+    fi
+
+    # Revenir au répertoire initial
+    cd ..
 fi
-
-
 
 if [[ ! -d "$dossier_images" && ! -d "$dossier_temp" ]];then
     mkdir images
