@@ -3,25 +3,78 @@
 #make all > /dev/null 2> $
 #cd ..
 
+
+# Variables des Options
+
+conducteur_plus=0
+
 fichier_d_entrer="data/data.csv"
 fichier_d_aide="progc/help.txt"
 dossier_temp="temp"
 dossier_images="images"
 option_oblig=0
 
-# Enregistrez le temps de début
-start_time=$(date +%s)
+
+
+
+
+##Gestion des Options (Parcour de la la ligne de Commande pour reperer les Options)
 
 for i in $* ;do                             # La condition qui me permet de lancer l'option aide et donc de faire apparaitre le fichier help.
     if [ "$i" == $fichier_d_entrer ] ;then
-       option_oblig=$(("$option_oblig"+1))
+        option_oblig=$(("$option_oblig"+1))
     fi
     if [ "$i" == "-h" ];then
         echo -e "Le fichier help est apparue dans le dossier progc\n"
         gedit "$fichier_d_aide"
-        exit 1
+        exit 1  
+    fi
+    if [ "$i" == "-d1" ];then
+        echo "hello world"
+    fi
+    if [ "$i" == "-d2" ];then
+        echo "hello world"
     fi
 done
+
+
+    
+   # l)
+    #    dix_plus_long_trajet=${option}
+    #    option_oblig=$(($option_oblig+1))
+     #   ;;
+    #t)
+    #    dix_villes_plus_traverser=${option}
+    #    option_oblig=$(($option_oblig+1))
+    #    ;;
+    #s)
+    #    statistiques_sur_etapes=${option}
+    #    option_oblig=$(($option_oblig+1))
+    #    ;;
+    #d)
+    #    conducteur_plus=${OPTARG}
+     #   numero='^[1-2]+$'
+     #   if ! [[ $conducteur_plus =~ $numero ]];then
+     #       echo "Choix des numeros invalide. Veuillez reselectionner un numero de mode compris entre 1 et 2"
+      #      exit 1
+      #  fi
+       # echo "bien jouer"
+       # option_oblig=$(("$option_oblig"+1))
+       # ;;
+    #:)
+     #   echo "Erreur: -${OPTARG} argument recommander."
+     #   exit 1
+     #   ;;
+    #*)
+    #    echo "Erreur: -${OPTARG} l'option n'existe pas"
+     #   exit 1
+      #  ;;
+    
+
+# Enregistrez le temps de début
+start_time=$(date +%s)
+
+
 
 
 if [ "$1" == $fichier_d_entrer ]; then     # Regarde si le 1er argument de la ligne de commande est bien le chemin vers le fichier de donnée d'entrer.
@@ -32,32 +85,30 @@ else
 fi
 
 
-#if (( "$option_oblig" < 2 )); then
-#    echo "pas assez d'arguments dans la ligne de commande"
-#    exit 1
-#fi
-
 # Vérifier si le fichier source C existe
 if [ -e "progc/main.c" ]; then
     echo "Le fichier source C main.c est présent."
-else
-    echo "Le fichier source C main.c n'est pas trouvé. Lancement de la compilation."
-
+    if [ ! -e "progc/main" ]; then
     # Se déplacer dans le répertoire progc
     cd progc
 
     # Compilation du fichier C
-    gcc -o main main.c
+    make all
 
     # Vérification du statut de la compilation
     if [ $? -eq 0 ]; then
-        echo "La compilation s'est bien déroulée. L'exécutable maina été créé."
+        echo "La compilation s'est bien déroulée. L'exécutable main a été créé."
     else
         echo "Erreur lors de la compilation."
     fi
 
     # Revenir au répertoire initial
-    cd ..
+   cd ..
+    else 
+        echo "L'executable C est present sur le disque dur"
+    fi
+else
+    echo "Le fichier source C main.c n'est pas trouvé. Lancement de la compilation."
 fi
 
 if [[ ! -d "$dossier_images" && ! -d "$dossier_temp" ]];then
@@ -66,6 +117,37 @@ if [[ ! -d "$dossier_images" && ! -d "$dossier_temp" ]];then
 else
     rm -f temp/*
 fi
+
+
+
+ 
+
+
+
+#if (( "$option_oblig" < 2 )); then
+#    echo "pas assez d'arguments dans la ligne de commande"
+#    exit 1
+#fi
+
+
+
+if [ "$conducteur_plus" -eq 1 ];
+       then
+
+       echo "bien joué"
+
+       #tail -n+2 "$fichierdentree" | cut -d';' -f"$numero_station","$numero_temperature","$numero_temp_min","$numero_temp_max" | sort -t, -k1 > temp1.csv
+       #if [ "$option_geo" -eq 1 ];then
+       #     rm "$fichierdentree"
+       #fi
+       #if [ "$option_date" -eq 1 ];then
+       #     rm datefiltrer.csv
+       #fi 
+       
+       #./tri -f temp1.csv -o temp1_sortie.csv  -t1 #-n "$tri" -t1 #"$numero"    
+fi
+
+
 
 end_time=$(date +%s)
 
