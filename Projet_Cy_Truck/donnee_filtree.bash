@@ -30,8 +30,10 @@ for i in $* ;do                             # La condition qui me permet de lanc
         exit 1  
     fi
     if [ "$i" == "-d1" ];then
-        sort -t";" -n -k1 data/data.csv > demo/test.csv
-        awk -F";" '{print $1 ";" $2 ";" $6}' demo/test.csv > demo/test_final.csv
+        awk -F";" '/;1;/ {compteur[$6] += 1} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr  > demo/test_final.csv
+        #awk '!seen[$2]++ {print $0}' demo/test_final.csv
+        #sort -t";" -n -k1 data/data.csv > demo/test.csv
+        #awk -F";" '{print $1 ";" $6}' demo/test.csv > demo/test1.csv
     fi
     if [ "$i" == "-d2" ];then
         echo "hello world"
