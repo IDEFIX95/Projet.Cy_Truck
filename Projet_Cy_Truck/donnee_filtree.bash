@@ -30,7 +30,8 @@ for i in $* ;do                             # La condition qui me permet de lanc
         exit 1  
     fi
     if [ "$i" == "-d1" ];then
-        echo "hello world"
+        sort -t";" -n -k1 data/data.csv > demo/test.csv
+        awk -F";" '{print $1 ";" $2 ";" $6}' demo/test.csv > demo/test_final.csv
     fi
     if [ "$i" == "-d2" ];then
         echo "hello world"
@@ -38,39 +39,7 @@ for i in $* ;do                             # La condition qui me permet de lanc
 done
 
 
-    
-   # l)
-    #    dix_plus_long_trajet=${option}
-    #    option_oblig=$(($option_oblig+1))
-     #   ;;
-    #t)
-    #    dix_villes_plus_traverser=${option}
-    #    option_oblig=$(($option_oblig+1))
-    #    ;;
-    #s)
-    #    statistiques_sur_etapes=${option}
-    #    option_oblig=$(($option_oblig+1))
-    #    ;;
-    #d)
-    #    conducteur_plus=${OPTARG}
-     #   numero='^[1-2]+$'
-     #   if ! [[ $conducteur_plus =~ $numero ]];then
-     #       echo "Choix des numeros invalide. Veuillez reselectionner un numero de mode compris entre 1 et 2"
-      #      exit 1
-      #  fi
-       # echo "bien jouer"
-       # option_oblig=$(("$option_oblig"+1))
-       # ;;
-    #:)
-     #   echo "Erreur: -${OPTARG} argument recommander."
-     #   exit 1
-     #   ;;
-    #*)
-    #    echo "Erreur: -${OPTARG} l'option n'existe pas"
-     #   exit 1
-      #  ;;
-    
-
+   
 # Enregistrez le temps de début
 start_time=$(date +%s)
 
@@ -131,10 +100,10 @@ fi
 
 
 
-if [ "$conducteur_plus" -eq 1 ];
-       then
+#if [ "$conducteur_plus" -eq 1 ];
+#       then
 
-       echo "bien joué"
+       #echo "bien joué"
 
        #tail -n+2 "$fichierdentree" | cut -d';' -f"$numero_station","$numero_temperature","$numero_temp_min","$numero_temp_max" | sort -t, -k1 > temp1.csv
        #if [ "$option_geo" -eq 1 ];then
@@ -145,7 +114,7 @@ if [ "$conducteur_plus" -eq 1 ];
        #fi 
        
        #./tri -f temp1.csv -o temp1_sortie.csv  -t1 #-n "$tri" -t1 #"$numero"    
-fi
+#fi
 
 
 
