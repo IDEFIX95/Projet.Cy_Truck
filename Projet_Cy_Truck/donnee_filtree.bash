@@ -6,45 +6,13 @@
 
 # Variables des Options
 
-conducteur_plus=0
+
 
 fichier_d_entrer="data/data.csv"
 fichier_d_aide="progc/help.txt"
 dossier_temp="temp"
 dossier_images="images"
 option_oblig=0
-
-
-
-
-
-##Gestion des Options (Parcour de la la ligne de Commande pour reperer les Options)
-
-for i in $* ;do                             # La condition qui me permet de lancer l'option aide et donc de faire apparaitre le fichier help.
-    if [ "$i" == $fichier_d_entrer ] ;then
-        option_oblig=$(("$option_oblig"+1))
-    fi
-    if [ "$i" == "-h" ];then
-        echo -e "Le fichier help est apparue dans le dossier progc\n"
-        gedit "$fichier_d_aide"
-        exit 1  
-    fi
-    if [ "$i" == "-d1" ];then
-        awk -F";" '/;1;/ {compteur[$6] += 1} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr  > demo/test_final.csv
-        #awk '!seen[$2]++ {print $0}' demo/test_final.csv
-        #sort -t";" -n -k1 data/data.csv > demo/test.csv
-        #awk -F";" '{print $1 ";" $6}' demo/test.csv > demo/test1.csv
-    fi
-    if [ "$i" == "-d2" ];then
-        echo "hello world"
-    fi
-done
-
-
-   
-# Enregistrez le temps de début
-start_time=$(date +%s)
-
 
 
 
@@ -91,45 +59,51 @@ fi
 
 
 
- 
+##Gestion des Options (Parcour de la la ligne de Commande pour reperer les Options)
+
+for i in "$@" ;do                             # La condition qui me permet de lancer l'option aide et donc de faire apparaitre le fichier help.
+    if [ "$i" == $fichier_d_entrer ] ;then
+        option_oblig=$(("$option_oblig"+1))
+    fi
+    if [ "$i" == "-h" ];then
+        echo -e "Le fichier help est apparue dans le dossier progc\n"
+        gedit "$fichier_d_aide"
+        exit 1  
+    fi
+    if [ "$i" == "-d1" ];then
+        # Enregistrez le temps de début
+        debut_timer_d1=$(date +%s)
+        
+        awk -F";" '/;1;/ {compteur[$6] += 1} END {for (nom in compteur) print nom " " compteur[nom]}' data/data.csv |sort -t" " -k3nr | head -10 > demo/test_final.csv
+        
+        fin_timer_d1=$(date +%s)
+
+        # Calculez la durée totale en secondes
+        duree_option_d1=$((fin_timer_d1 - debut_timer_d1))
+
+        option_oblig=$(("$option_oblig"+1))
+
+        # Affichez la durée
+        echo -e "\nLe traitement de l'option -d1 a pris $duree_option_d1 secondes.\n"
+        
+        #awk '!seen[$2]++ {print $0}' demo/test_final.csv
+        #sort -t";" -n -k1 data/data.csv > demo/test.csv
+        #awk -F";" '{print $1 ";" $2 ";" $6}' demo/test.csv > demo/test1.csv
+    fi
+    if [ "$i" == "-d2" ];then
+        echo "hello world"
+        option_oblig=$(("$option_oblig"+1))
+    fi
+done
+
+
+if (( "$option_oblig" < 2 )); then
+   echo "pas assez d'arguments dans la ligne de commande"
+    exit 1
+fi
 
 
 
-#if (( "$option_oblig" < 2 )); then
-#    echo "pas assez d'arguments dans la ligne de commande"
-#    exit 1
-#fi
-
-
-
-#if [ "$conducteur_plus" -eq 1 ];
-#       then
-
-       #echo "bien joué"
-
-       #tail -n+2 "$fichierdentree" | cut -d';' -f"$numero_station","$numero_temperature","$numero_temp_min","$numero_temp_max" | sort -t, -k1 > temp1.csv
-       #if [ "$option_geo" -eq 1 ];then
-       #     rm "$fichierdentree"
-       #fi
-       #if [ "$option_date" -eq 1 ];then
-       #     rm datefiltrer.csv
-       #fi 
-       
-       #./tri -f temp1.csv -o temp1_sortie.csv  -t1 #-n "$tri" -t1 #"$numero"    
-#fi
-
-
-
-end_time=$(date +%s)
-
-# Calculez la durée totale en secondes
-duration=$((end_time - start_time))
-
-# Affichez la durée
-echo -e "Le traitement a pris $duration secondes.\n"
-
-
-
-echo "Analyse des options terminée"
+echo "Analyse des options terminées"
 
 exit 0
