@@ -1,6 +1,6 @@
-#EXEC_ouverture_fichier = ouverture_fichier
-#SRC_ouverture_fichier = ouverture_fichier.c
-#OBJ_ouverture_fichier = $(SRC_ouverture_fichier:.c=.o)
+EXEC_tri_d2 = tri_d2
+SRC_tri_d2 = tri_d2.c
+OBJ_tri_d2 = $(SRC_tri_d2:.c=.o)
 
 
 EXEC_main = main
@@ -10,10 +10,10 @@ OBJ_main = $(SRC_main:.c=.o)
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
 
-all: $(EXEC_main) #$(EXEC_ouverture_fichier) 
+all: $(EXEC_main) $(EXEC_tri_d2) 
 
-#$(EXEC_ouverture_fichier): $(OBJ_ouverture_fichier)
-#		$(CC) -o $(EXEC_ouverture_fichier) $(OBJ_ouverture_fichier)
+$(EXEC_tri_d2): $(OBJ_tri_d2)
+		$(CC) -o $(EXEC_tri_d2) $(OBJ_tri_d2)
 
 $(EXEC_main): $(OBJ_main)
 		$(CC) -o $(EXEC_main) $(OBJ_main)
@@ -26,5 +26,6 @@ $(EXEC_main): $(OBJ_main)
 clean:
 	@echo "Suppression des fichiers objets et exécutables"
 	rm -f progc/$(OBJ_main) progc/$(EXEC_main)
+	rm -f progc/$(OBJ_tri_d2) progc/$(EXEC_tri_d2)
 
 .PHONY: all clean
