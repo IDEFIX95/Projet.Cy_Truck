@@ -10,8 +10,12 @@ cd ..
 
 fichier_d_entrer="data/data.csv"
 fichier_d_aide="progc/help.txt"
+
 dossier_temp="temp"
 dossier_images="images"
+
+option_t="-t"
+
 option_oblig=0
 
 
@@ -74,7 +78,7 @@ for i in "$@" ;do                             # La condition qui me permet de la
         # Enregistrez le temps de début
         debut_timer_d1=$(date +%s)
         
-        awk -F";" '/;1;/ {compteur[$6] += 1} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr | head -10 > demo/d1_final.csv
+        awk -F";" '/;1;/ {compteur[$6] += 1} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr > demo/d1_final.csv
         
         fin_timer_d1=$(date +%s)
 
@@ -91,11 +95,11 @@ for i in "$@" ;do                             # La condition qui me permet de la
         # Enregistrez le temps de début
         debut_timer_d2=$(date +%s)
     
-        awk -F";" ' NR > 1 {print $5 ";" $6}' data/data.csv > progc/d2_final1.csv
+        #awk -F";" ' NR > 1 {print $5 ";" $6}' data/data.csv > progc/d2_final1.csv
         #touch progc/d2_vraifinal.csv
         #./progc/tri_d2
         #awk -F";" '/;1;/ {compteur[$6] += $5} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr | head -10 > demo/d2_final.csv
-        # C'est le bon code pour trier ect mais ca met trop de temps de traitement ----> #awk -F";" '{compteur[$6] += $5} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr | head -10 > demo/d2_final2.csv
+        awk -F";" '{compteur[$6] += $5} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr | head -10 > demo/d2_final.csv
         fin_timer_d2=$(date +%s)
 
         # Calculez la durée totale en secondes
@@ -110,7 +114,7 @@ for i in "$@" ;do                             # La condition qui me permet de la
     if [ "$i" == "-l" ];then
         # Enregistrez le temps de début
         debut_timer_l=$(date +%s)
-        awk -F";" '{compteur[$1] += $5} END {for (id_trajet in compteur) print id_trajet ";" compteur[id_trajet]}' |sort -t";" -k2nr > demo/l_final.csv
+        awk -F";"  '{compteur[$1] += $5} END {for (id_trajet in compteur) print id_trajet ";" compteur[id_trajet]}' data/data.csv |sort -t";" -k2nr | head -10 | sort -t";" -k1n > demo/l_final.csv
         fin_timer_l=$(date +%s)
 
         # Calculez la durée totale en secondes
@@ -119,7 +123,18 @@ for i in "$@" ;do                             # La condition qui me permet de la
         option_oblig=$(("$option_oblig"+1))
 
         # Affichez la durée
-        echo -e "\nLe traitement de l'option -d2 a pris $duree_option_l secondes.\n"
+        echo -e "\nLe traitement de l'option -l a pris $duree_option_l secondes.\n"
+    fi
+
+    if [ "$i" == $option_t ];then
+        #cut -d";" -f1,3,4,6 data/data.csv > demo/t_intermediaire.csv
+        ./progc/filtre_t $option_t
+        option_oblig=$(("$option_oblig"+1)) 
+    fi
+
+    if [ "$i" == "-supps_fichiers_demo" ];then
+        rm -f demo/*.csv
+        option_oblig=$(("$option_oblig"+1))
     fi
 
     if [ "$i" == "-fichier_reference" ];then
@@ -130,13 +145,10 @@ for i in "$@" ;do                             # La condition qui me permet de la
 
 done
 
-
 if (( "$option_oblig" < 2 )); then
    echo "pas assez d'arguments dans la ligne de commande"
     exit 1
 fi
-
-
 
 echo "Analyse des options terminées"
 
