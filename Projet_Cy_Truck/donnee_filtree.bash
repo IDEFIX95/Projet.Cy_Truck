@@ -4,7 +4,7 @@ make all > /dev/null 2> $
 cd ..
 
 
-# Variables des Options.
+# Variables des options.
 
 
 
@@ -20,7 +20,7 @@ option_oblig=0
 
 #--------------------------------------------------------------------------------------------------------------#
 
-# Installation du logiciel ImageMagic afin de manipuler les graphiques.
+# Installation du logiciel ImageMagick afin de manipuler les graphiques.
 if command -v convert > /dev/null 2>&1; then
   echo "ImageMagick est installé."
 else
@@ -30,7 +30,7 @@ else
   sudo apt-get update
   sudo apt-get install imagemagick
   
-  # Verification de l'installation.
+  # Vérification de l'installation.
   if [ $? -eq 0 ]; then
     echo "ImageMagick a été installé avec succès."
   else
@@ -40,10 +40,10 @@ fi
 
 #--------------------------------------------------------------------------------------------------------------#
 
-if [ "$1" == $fichier_d_entrer ]; then     # Regarde si le 1er argument de la ligne de commande est bien le chemin vers le fichier de donnée d'entrer.
+if [ "$1" == $fichier_d_entrer ]; then     # Regarde si le 1er argument de la ligne de commande est bien le chemin vers le fichier de données d'entrée.
     echo "Le chemin vers le fichier $fichier_d_entrer est bien le premier argument de la ligne de commande."
 else
-    echo "Le chemin vers le fichier $fichier_d_entrer n'est pas mit comme premier argument"
+    echo "Le chemin vers le fichier $fichier_d_entrer n'est pas mis comme premier argument"
     exit 1
 fi
 
@@ -69,7 +69,7 @@ if [ -e "progc/main.c" ]; then
     # Revenir au répertoire initial.
    cd ..
     else 
-        echo "L'executable C est present sur le disque dur"
+        echo "L'exécutable C est present sur le disque dur"
     fi
 else
     echo "Le fichier source C main.c n'est pas trouvé. Lancement de la compilation."
@@ -86,9 +86,9 @@ fi
 
 #--------------------------------------------------------------------------------------------------------------#
 
-##Gestion des Options (Parcour de la la ligne de Commande pour reperer les Options).
+##Gestion des options (Parcours de la ligne de cmmande pour repérer les options).
 
-for i in "$@" ;do                             # La condition qui me permet de lancer l'option aide et donc de faire apparaitre le fichier help.
+for i in "$@" ;do                             # La condition qui me permet de lancer l'option aide et donc de faire apparaître le fichier help.
     if [ "$i" == $fichier_d_entrer ] ;then
         option_oblig=$(("$option_oblig"+1))
     fi
@@ -98,19 +98,19 @@ for i in "$@" ;do                             # La condition qui me permet de la
         exit 1  
     fi
     if [ "$i" == "-d1" ];then
-        # Enregistrez le temps de début.
+        # Enregistrer le temps de début.
         debut_timer_d1=$(date +%s)
         
         awk -F";" '/;1;/ {compteur[$6] += 1} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr | head -10 > demo/d1_final.csv
         
         fin_timer_d1=$(date +%s)
 
-        # Calculez la durée totale en secondes.
+        # Calculer la durée totale en secondes.
         duree_option_d1=$((fin_timer_d1 - debut_timer_d1))
 
         option_oblig=$(("$option_oblig"+1))
 
-        # Affichez la durée.
+        # Afficher la durée.
         echo -e "\nLe traitement de l'option -d1 a pris $duree_option_d1 secondes.\n"
 
         #Partie graphique (gnuplot).
@@ -149,17 +149,17 @@ EOF
     fi
 
     if [ "$i" == "-d2" ];then
-        # Enregistrez le temps de début.
+        # Enregistrer le temps de début.
         debut_timer_d2=$(date +%s)
         awk -F";" '{compteur[$6] += $5} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr | head -10 > demo/d2_final.csv
         fin_timer_d2=$(date +%s)
 
-        # Calculez la durée totale en secondes.
+        # Calculer la durée totale en secondes.
         duree_option_d2=$((fin_timer_d2 - debut_timer_d2))
 
         option_oblig=$(("$option_oblig"+1))
 
-        # Affichez la durée.
+        # Afficher la durée.
         echo -e "\nLe traitement de l'option -d2 a pris $duree_option_d2 secondes.\n"
 
         # Partie graphique (gnuplot).
@@ -198,17 +198,17 @@ EOF
     fi
 
     if [ "$i" == "-l" ];then
-        # Enregistrez le temps de début.
+        # Enregistrer le temps de début.
         debut_timer_l=$(date +%s)
         awk -F";"  '{compteur[$1] += $5} END {for (id_trajet in compteur) print id_trajet ";" compteur[id_trajet]}' data/data.csv |sort -t";" -k2nr | head -10 | sort -t";" -k1n > demo/l_final.csv
         fin_timer_l=$(date +%s)
 
-        # Calculez la durée totale en secondes.
+        # Calculer la durée totale en secondes.
         duree_option_l=$((fin_timer_l - debut_timer_l))
 
         option_oblig=$(("$option_oblig"+1))
 
-        # Affichez la durée.
+        # Afficher la durée.
         echo -e "\nLe traitement de l'option -l a pris $duree_option_l secondes.\n"
 
         # Partie graphique (gnuplot).
