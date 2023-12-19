@@ -5,12 +5,12 @@
 // Structure pour stocker les statistiques
 struct Statistique {
     char nom[256];
-    float distance_total;
+    float distance_totale;
 };
 
 // Fonction de comparaison pour le tri qsort
 int comparer_statistiques(const void *a, const void *b) {
-    return ((struct Statistique *)b)->distance_total - ((struct Statistique *)a)->distance_total;
+    return ((struct Statistique *)b)->distance_totale - ((struct Statistique *)a)->distance_totale;
 }
 
 int main() {
@@ -39,7 +39,7 @@ int main() {
             for (int i = 0; i < currentIndex; i++) {
                 if (strcmp(stats[i].nom, nom) == 0) {
                     // Si le nom existe déjà, mise à jour des statistiques
-                    stats[i].distance_total += distance;
+                    stats[i].distance_totale += distance;
                     found = 1;
                     break;
                 }
@@ -51,7 +51,8 @@ int main() {
                 stats[currentIndex].distance_total = distance;
                 currentIndex++;
             }
-        } else {
+        } 
+        else {
             printf("Erreur de lecture de la ligne : %s\n", line);
         }
     }
