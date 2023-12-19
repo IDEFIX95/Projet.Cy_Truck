@@ -3,7 +3,7 @@
 
 struct Statistique {
     char noms_prenoms[256];
-    float distance_total;
+    float distance_totale;
 };
 
 
