@@ -1,4 +1,4 @@
-# Projet.Cy_Truck
+# Projet.Cy_Truck - Yacine KHELIL, Duc Duy HUYNH, Clément RIMBEUF
 Projet CY Truck fin de semestre 1 Pre_Ing 2 
 
 
