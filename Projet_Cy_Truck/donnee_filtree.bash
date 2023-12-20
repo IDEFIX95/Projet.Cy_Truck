@@ -238,9 +238,23 @@ EOF
     fi
 
     if [ "$i" == $option_t ];then
-        #cut -d";" -f1,3,4,6 data/data.csv > demo/t_intermediaire.csv
-        ./progc/filtre_t $option_t
-        option_oblig=$(("$option_oblig"+1)) 
+        # Enregistrez le temps de début
+        debut_timer_t=$(date +%s)
+        awk -F";" '{print $1 ";" $3 ";" $4 ";" $6}' data/data.csv > demo/t_intermediaire.csv
+        touch temp/t_filtre.csv
+        ./progc/filtre_t
+        #filtrage en .c
+        #On peut faire un head -10 sur le fichier de tri a la fin
+        fin_timer_t=$(date +%s)
+
+        # Calculez la durée totale en secondes
+        duree_option_t=$((fin_timer_t - debut_timer_t))
+
+        
+        option_oblig=$(("$option_oblig"+1))
+
+        # Affichez la durée
+        echo -e "\nLe traitement de l'option -t a pris $duree_option_t secondes.\n" 
     fi
 
     if [ "$i" == "-supps_fichiers_demo" ];then
