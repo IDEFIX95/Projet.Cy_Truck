@@ -135,7 +135,7 @@ for i in "$@" ;do                             # La condition qui me permet de la
         set xtic rotate by 90 offset 0,-9
         set xlabel rotate by 180 offset 0,-9
         set ylabel offset 92,0
-        set ytic offset 83,0
+        set ytic offset 83,0.25
         set yrange [0:250]
 
         set ytic rotate by 90
@@ -150,7 +150,7 @@ for i in "$@" ;do                             # La condition qui me permet de la
 
 EOF
     convert -rotate 90 images/histogramme_d1.png images/histogramme_d1.png  # Commande pour pivoter l'image afin de transformer en un histogramme horizontal.
-    display images/histogramme_d1.png
+    xdg-open images/histogramme_d1.png
     fi
 
     if [ "$i" == "-d2" ];then
@@ -184,7 +184,7 @@ EOF
         set xtic rotate by 90 offset 0,-9
         set xlabel rotate by 180 offset 0,-9
         set ylabel offset 92,0
-        set ytic offset 83,0
+        set ytic offset 83,0.25
         set yrange [0:200000]
 
         set ytic rotate by 90
@@ -199,7 +199,7 @@ EOF
 
 EOF
     convert -rotate 90 images/histogramme_d2.png images/histogramme_d2.png  # Commande pour pivoter l'image afin de transformer en un histogramme horizontal.
-    display images/histogramme_d2.png
+    xdg-open images/histogramme_d2.png
     fi
 
     if [ "$i" == "-l" ];then
@@ -226,6 +226,7 @@ EOF
         set title 'Histogramme de traitement l'
         set xlabel 'Identifiant du trajet (route ID)'
         set ylabel 'Distance (en kilomètres)'
+        set yrange [0:3000]
         set style histogram rowstacked
         set style fill solid border -1
         set boxwidth 0.5
@@ -234,48 +235,15 @@ EOF
         set datafile separator ';'
         plot 'demo/l_final.csv' using 2:xtic(1) with boxes lc rgb 'blue'
 EOF
-        display images/histogramme_l.png
+        xdg-open images/histogramme_l.png
     fi
 
     if [ "$i" == $option_t ];then
         # Enregistrez le temps de début
         debut_timer_t=$(date +%s)
-        awk -F";" '{
-    if (!(($1,$3) in compteur)) {
-        compteur[$1,$3] += 1
-    }
-} 
-END {
-    for (key in compteur) {
-        split(key, parts, SUBSEP)
-        print parts[1] ";" parts[2] ";" compteur[key]
-    }
-}' data/data.csv > demo/t_intermediaire_depart
-        #awk -F";" '{
-    #if (!(($1,$3) in villes)) {
-    #    villes[$3,$1] = 1
-    #    compteur[$3] += 1
-    #}
-#} 
-#END {
-    #for (ville in compteur) {
-    #    print ville ";" compteur[ville]
-    #}
-#}' data/data.csv > demo/t_intermediaire_depart.csv
-
-    #    awk -F";" '{
-    #if (!(($1,$4) in villes)) {
-    #    villes[$4,$1] = 1
-     #   compteur[$4] += 1
-    #}
-#} 
-#END {
-  #  for (ville in compteur) {
-     #   print ville ";" compteur[ville]
-    #}
-#}' data/data.csv > demo/t_intermediaire_arrivee.csv
-        #touch temp/t_filtre.csv
-        #./progc/filtre_t
+        awk -F";" '{print $1 ";" $3 ";" $4 ";" $6}' data/data.csv > demo/t_intermediaire.csv
+        touch temp/t_filtre.csv
+        ./progc/filtre_t
         #filtrage en .c
         #On peut faire un head -10 sur le fichier de tri a la fin
         fin_timer_t=$(date +%s)
@@ -283,6 +251,7 @@ END {
         # Calculez la durée totale en secondes
         duree_option_t=$((fin_timer_t - debut_timer_t))
 
+        
         option_oblig=$(("$option_oblig"+1))
 
         # Affichez la durée
@@ -296,7 +265,7 @@ END {
 
     if [ "$i" == "-fichier_reference" ];then
         sort -t";" -n -k1 data/data.csv > demo/ref.csv
-        awk -F";" '{print $1 ";" $5 ";" $3}' demo/ref.csv > demo/reference_offi.csv
+        awk -F";" '{print $1 ";" $5 ";" $6}' demo/ref.csv > demo/reference_offi.csv
         option_oblig=$(("$option_oblig"+1))
     fi
 
