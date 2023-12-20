@@ -240,9 +240,42 @@ EOF
     if [ "$i" == $option_t ];then
         # Enregistrez le temps de début
         debut_timer_t=$(date +%s)
-        awk -F";" '{print $1 ";" $3 ";" $4 ";" $6}' data/data.csv > demo/t_intermediaire.csv
-        touch temp/t_filtre.csv
-        ./progc/filtre_t
+        awk -F";" '{
+    if (!(($1,$3) in compteur)) {
+        compteur[$1,$3] += 1
+    }
+} 
+END {
+    for (key in compteur) {
+        split(key, parts, SUBSEP)
+        print parts[1] ";" parts[2] ";" compteur[key]
+    }
+}' data/data.csv > demo/t_intermediaire_depart
+        #awk -F";" '{
+    #if (!(($1,$3) in villes)) {
+    #    villes[$3,$1] = 1
+    #    compteur[$3] += 1
+    #}
+#} 
+#END {
+    #for (ville in compteur) {
+    #    print ville ";" compteur[ville]
+    #}
+#}' data/data.csv > demo/t_intermediaire_depart.csv
+
+    #    awk -F";" '{
+    #if (!(($1,$4) in villes)) {
+    #    villes[$4,$1] = 1
+     #   compteur[$4] += 1
+    #}
+#} 
+#END {
+  #  for (ville in compteur) {
+     #   print ville ";" compteur[ville]
+    #}
+#}' data/data.csv > demo/t_intermediaire_arrivee.csv
+        #touch temp/t_filtre.csv
+        #./progc/filtre_t
         #filtrage en .c
         #On peut faire un head -10 sur le fichier de tri a la fin
         fin_timer_t=$(date +%s)
@@ -250,7 +283,6 @@ EOF
         # Calculez la durée totale en secondes
         duree_option_t=$((fin_timer_t - debut_timer_t))
 
-        
         option_oblig=$(("$option_oblig"+1))
 
         # Affichez la durée
@@ -264,7 +296,7 @@ EOF
 
     if [ "$i" == "-fichier_reference" ];then
         sort -t";" -n -k1 data/data.csv > demo/ref.csv
-        awk -F";" '{print $1 ";" $5 ";" $6}' demo/ref.csv > demo/reference_offi.csv
+        awk -F";" '{print $1 ";" $5 ";" $3}' demo/ref.csv > demo/reference_offi.csv
         option_oblig=$(("$option_oblig"+1))
     fi
 
