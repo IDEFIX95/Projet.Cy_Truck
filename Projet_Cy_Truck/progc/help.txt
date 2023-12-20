@@ -1,7 +1,12 @@
-Bienvenue sur le fichier d'aide du Projet Cy-Truck 2023/2024
+Bienvenue sur le fichier d'aide du Projet Cy-Trucks 2023/2024
 
-Tout d'abord comment lancer le programme avant même de choisir une ou des options :
-    Etape 1 : Veuillez taper dans le terminal la ligne suivant "./donnee_filtre.bash" suivi du chemin vers lequel se trouve le fichier de données.
+Tout d'abord, voici comment lancer le programme avant même de choisir une ou des options :
+    => Veuillez taper dans le terminal la ligne suivante "./donnee_filtre.bash data/data.csv" suivi du chemin vers lequel se trouve le fichier de données.
 
     La liste des options disponibles :
-        -> L'option "-h" aide qui vous permet d'avoir accès à ce fichier et de vous montrer jusqu'où vous pouvez aller en termes d'options pour ce projet.
+        -> L'option "-h" qui vous permet d'avoir accès à ce fichier et de vous montrer jusqu'où vous pouvez aller en termes d'options pour ce projet.
+        -> L'option "-d1" qui vous permet d'afficher la liste des 10 premiers conducteurs avec le plus grand nombre de trajets.
+        -> L'option "-d2" qui vous permet d'afficher la liste des 10 premiers conducteurs avec la plus grande distance parcourue.
+        -> L'option "-l" qui vous permet d'afficher les 10 trajets les plus longs.
+        -> L'option "-t" qui vous permet d'afficher les 10 villes les plus traversées.
+        -> L'option "-s" qui vous permet d'afficher les statistiques sur les étapes.
