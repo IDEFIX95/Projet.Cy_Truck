@@ -241,6 +241,44 @@ EOF
     if [ "$i" == $option_t ];then
         # Enregistrez le temps de début
         debut_timer_t=$(date +%s)
+        awk -F";" '{
+    if (!(($1,$3) in compteur)) {
+        compteur[$1,$3] += 1
+    }
+} 
+END {
+    for (key in compteur) {
+        split(key, parts, SUBSEP)
+        print parts[1] ";" parts[2] ";" compteur[key]
+    }
+}' data/data.csv > demo/t_intermediaire_depart.csv
+
+    awk -F";" '{
+    if (!(($1,$4) in compteur)) {
+        compteur[$1,$4] += 1
+    }
+} 
+END {
+    for (key in compteur) {
+        split(key, parts, SUBSEP)
+        print parts[1] ";" parts[2] ";" compteur[key]
+    }
+}' data/data.csv > demo/t_intermediaire_arrivee.csv
+
+
+    awk -F";" '{
+    key = $3 ";" $1  
+    if (!(key in villes)) {
+        villes[key] = 1
+        compteur[$3] += 1
+        print $0  # Imprime la ligne dans le fichier de sortie
+    }
+} 
+END {
+    for (ville in compteur) {
+        print ville ";" compteur[ville]
+    }
+}' demo/t_intermediaire_depart.csv demo/t_intermediaire_arrivee.csv > demo/fichier_final_t.csv
         awk -F";" '{print $1 ";" $3 ";" $4 ";" $6}' data/data.csv > demo/t_intermediaire.csv
         touch temp/t_filtre.csv
         ./progc/filtre_t
