@@ -20,12 +20,19 @@ void equilibre(AVL *pArbre, int *h){
 	}
 }
 
-AVL *creationAVL(int elt){
+AVL *creationAVL(int a1, char * a2){
 	AVL *pAVL = NULL;
 	pAVL = malloc(sizeof(AVL));
-	pAVL->valeur = elt;
+	pAVL->c1=a1;
+	pAVL->c2=malloc(sizeof(char)*128);
+	if(pAVL->c2==NULL){
+		exit(4);
+	}
+	strcpy(pAVL->c2,a2);
 	pAVL->fg = NULL;
 	pAVL->fd = NULL;
+	pAVL->equilibre=0;
+	pAVL->hauteur=0;
 	return pAVL;
 }
 
@@ -119,7 +126,7 @@ AVL *rotationD(AVL *pArbre){
 
 AVL *doublerotationG(AVL *pArbre){
 	pArbre->fd = rotationD(pArbre->fd);
-	return rotatioG(pArbre);
+	return rotationG(pArbre);
 }
 
 AVL *doublerotationD(AVL *pArbre){
@@ -151,20 +158,21 @@ AVL *equilibreAVL(AVL *pArbre){
 	return pArbre;
 }
 
-AVL *insertionAVL(AVL *pArbre, int elt, int *h){
+
+AVL *insertionAVL(AVL *pArbre, int a1, char * a2, int *h){
 	if(h == NULL){
 		exit(1);
 	}
 	if(pArbre == NULL){
 		*h = 1;
-		return (creationAVL(elt));
+		return creationAVL(a1,a2);
 	}
-	else if(elt < pArbre->valeur){
-		pArbre->fg = insertionAVL(pArbre->fg, elt, h);
+	else if(a2 < pArbre->c2){
+		pArbre->fg = insertionAVL(pArbre->fg, a1, a2, h);
 		*h = -*h;
 	}
-	else if(elt > pArbre->valeur){
-		pArbre->fd = insertionAVl(pArbre->fd, elt, h);
+	else if(a2 > pArbre->c2){
+		pArbre->fd = insertionAVl(pArbre->fd, a1, a2, h);
 	}
 		*h = 0;
 		return pArbre;
@@ -189,6 +197,15 @@ AVL *insertionAVL(AVL *pArbre, int elt, int *h){
 
 int existeFilsDroitAVL(AVL *pArbre){
 	if(pArbre->fd == NULL){
+		return 0;
+	}
+	else{
+		return 1;
+	}
+}
+
+int existeFilsGaucheAVL(AVL *pArbre){
+	if(pArbre->fg == NULL){
 		return 0;
 	}
 	else{
