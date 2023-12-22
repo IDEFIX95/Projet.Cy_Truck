@@ -134,8 +134,8 @@ for i in "$@" ;do                             # La condition qui me permet de la
         set ylabel 'Nombre de trajets'
         set xtic rotate by 90 offset 0,-9
         set xlabel rotate by 180 offset 0,-9
-        set ylabel offset 92,0
-        set ytic offset 83,0.25
+        set ylabel offset 87,0
+        set ytic offset 78,0.50
         set yrange [0:250]
 
         set ytic rotate by 90
