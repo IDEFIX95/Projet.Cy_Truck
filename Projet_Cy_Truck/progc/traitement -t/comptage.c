@@ -48,8 +48,7 @@ pABR insertionABR(pABR a, char *c) {
 void parcoursdecroissant(pABR a, FILE *fichier2) {
     if (a != NULL) {
         parcoursdecroissant(a->fd, fichier2);
-        fprintf(fichier2, "ville: %s, apparu: %d\n", a->ville, a->somme);
-        //printf("Enregistrement dans fichier2 : ville: %s, apparu: %d\n", a->ville, a->somme);  // Message de débogage
+        fprintf(fichier2, "%s;%d\n", a->ville, a->somme);
         parcoursdecroissant(a->fg, fichier2);
     } 
 }
