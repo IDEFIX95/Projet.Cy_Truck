@@ -216,6 +216,41 @@ EOF
         # Affichez la durée.
         echo -e "\nLe traitement de l'option -l a pris $duree_option_l secondes.\n"
 
+        if [ "$i" == "-l" ];then
+        # Enregistrez le temps de début.
+        debut_timer_l=$(date +%s)
+        awk -F";"  '{compteur[$1] += $5} END {for (id_trajet in compteur) print id_trajet ";" compteur[id_trajet]}' data/data.csv |sort -t";" -k2nr | head -10 | sort -t";" -k1n > demo/l_final.csv
+        fin_timer_l=$(date +%s)
+
+        # Calculez la durée totale en secondes.
+        duree_option_l=$((fin_timer_l - debut_timer_l))
+
+        option_oblig=$(("$option_oblig"+1))
+
+        # Affichez la durée.
+        echo -e "\nLe traitement de l'option -l a pris $duree_option_l secondes.\n"
+
+        # Partie graphique (gnuplot).
+        gnuplot << EOF
+        # Paramètres de sortie
+        set terminal pngcairo enhanced font 'Arial,10'
+        set output 'images/histogramme_l.png'
+
+        # Paramètres du graphique
+        set title 'Histogramme de traitement l'
+        set xlabel 'Identifiant du trajet (route ID)'
+        set ylabel 'Distance (en kilomètres)'
+        set yrange [0:3000]
+        set style histogram rowstacked
+        set style fill solid border -1
+        set boxwidth 0.5
+
+        # Tracé du graphique
+        set datafile separator ';'
+        plot 'demo/l_final.csv' using 2:xtic(1) with boxes lc rgb 'blue'
+EOF
+        xdg-open images/histogramme_l.png
+
     fi
 
 
