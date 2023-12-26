@@ -316,7 +316,9 @@ END {
     if [ "$i" == "-s" ];then
         # Enregistrez le temps de début
         debut_timer_s=$(date +%s)
-        awk -F";" '{print $1 ";" $2 ";" $5}' data/data.csv > demo/
+        awk -F";" ' FNR > 1 {print $1 ";" $5}' data/data.csv | sort -t";" -n -k1 > temp/s_intermediaire_calcul.csv
+        touch temp/s_filtre.csv
+        ./progc/filtre_s
         fin_timer_s=$(date +%s)
         # Calculez la durée totale en secondes
         duree_option_s=$((fin_timer_s - debut_timer_s))
