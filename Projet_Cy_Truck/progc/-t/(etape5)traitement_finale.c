@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#include <unistd.h>
 #define TAILLE_BUFFER 2048
 
 
@@ -209,8 +209,12 @@ int main() {
     }
 
     for (int i = 0; i < 10; i++) {
-        fprintf(fichier4, "%s;%d;%d\n", donnees[i].col1, donnees[i].col2, donnees[i].col3);
+        fprintf(fichier4, "%s;%d;%d", donnees[i].col1, donnees[i].col2, donnees[i].col3);
+        if (i < 9){
+            fprintf(fichier4, "\n");
+        }
     }
+
 
     if (fclose(fichier4) != 0) {
         fprintf(stderr, "Erreur lors de la fermeture du fichier fichier4\n");
