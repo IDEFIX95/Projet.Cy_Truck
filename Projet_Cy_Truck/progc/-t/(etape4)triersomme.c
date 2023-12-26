@@ -140,10 +140,6 @@ pArbre insertionAVL(pArbre x, int e, char *c, int *h) {
             *h = 1;
         }
     }
-
-
-
-
     return x;
 }
 
