@@ -171,8 +171,6 @@ int main() {
     int nombreDeLignes = 0;
     while (fgets(ligne, sizeof(ligne), fichier1) != NULL) {
         nombreDeLignes++;
-        //printf("%d\n", nombreDeLignes);
-        //printf("Ligne lue du fichier : %s", ligne);
     }
 
     fclose(fichier1);
@@ -184,13 +182,9 @@ int main() {
     lignes *donnees = malloc(nombreDeLignes * sizeof(lignes));
 
     for (int i = 0; i < nombreDeLignes; i++) {
-        // Lire une ligne complète
         if (fgets(ligne, sizeof(ligne), fichier1) != NULL) {
-            // Utiliser sscanf pour extraire les données de la ligne
             if (sscanf(ligne, "%1023[^;];%d;%d", donnees[i].col1, &donnees[i].col2, &donnees[i].col3) == 3) {
-                // Affichage en cas de succès
             } else {
-                // Affichage en cas d'échec
                 fprintf(stderr, "Erreur lors de la lecture des données du fichier fichier1 avant le tri\n");
                 fprintf(stderr, "Ligne problématique : %s\n", ligne);
                 free(donnees);
@@ -214,7 +208,7 @@ int main() {
         return 1;
     }
 
-    for (int i = 0; i < nombreDeLignes; i++) {
+    for (int i = 0; i < 10; i++) {
         fprintf(fichier4, "%s;%d;%d\n", donnees[i].col1, donnees[i].col2, donnees[i].col3);
     }
 
