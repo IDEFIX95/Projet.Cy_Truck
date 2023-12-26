@@ -149,8 +149,8 @@ for i in "$@" ;do                             # La condition qui me permet de la
         plot 'demo/d1_final.csv' using 2:xtic(1) with boxes lc rgb 'blue'
 
 EOF
-    convert -rotate 90 images/histogramme_d1.png images/histogramme_d1.png  # Commande pour pivoter l'image afin de transformer en un histogramme horizontal.
-    display images/histogramme_d1.png
+        convert -rotate 90 images/histogramme_d1.png images/histogramme_d1.png  # Commande pour pivoter l'image afin de transformer en un histogramme horizontal.
+        xdg-open images/histogramme_d1.png
     fi
 
     if [ "$i" == "-d2" ];then
@@ -198,8 +198,8 @@ EOF
         plot 'demo/d2_final.csv' using 2:xtic(1) with boxes lc rgb 'blue'
 
 EOF
-    convert -rotate 90 images/histogramme_d2.png images/histogramme_d2.png  # Commande pour pivoter l'image afin de transformer en un histogramme horizontal.
-    display images/histogramme_d2.png
+        convert -rotate 90 images/histogramme_d2.png images/histogramme_d2.png  # Commande pour pivoter l'image afin de transformer en un histogramme horizontal.
+        xdg-open images/histogramme_d2.png
     fi
 
     if [ "$i" == "-l" ];then
