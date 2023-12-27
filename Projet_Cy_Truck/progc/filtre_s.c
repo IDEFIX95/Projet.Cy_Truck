@@ -75,7 +75,7 @@ int main() {
         if (stats[i].count > 0) {
             stats[i].moyenne = (float)stats[i].somme / stats[i].count;
             stats[i].difference = (float)stats[i].max - (float)stats[i].min;
-            fprintf(output, "%d;%.2f;%.2f;%.2f;%.2f\n", stats[i].id, stats[i].min, stats[i].moyenne, stats[i].max, stats[i].difference);
+            fprintf(output, "%d;%.3f;%.2f;%.3f;%.3f\n", stats[i].id, stats[i].min, stats[i].moyenne, stats[i].max, stats[i].difference);
         }
     }
 
