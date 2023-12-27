@@ -212,21 +212,6 @@ EOF
         duree_option_l=$((fin_timer_l - debut_timer_l))
 
         option_oblig=$(("$option_oblig"+1))
-
-        # Affichez la durée.
-        echo -e "\nLe traitement de l'option -l a pris $duree_option_l secondes.\n"
-
-        if [ "$i" == "-l" ];then
-        # Enregistrez le temps de début.
-        debut_timer_l=$(date +%s)
-        awk -F";"  '{compteur[$1] += $5} END {for (id_trajet in compteur) print id_trajet ";" compteur[id_trajet]}' data/data.csv |sort -t";" -k2nr | head -10 | sort -t";" -k1n > demo/l_final.csv
-        fin_timer_l=$(date +%s)
-
-        # Calculez la durée totale en secondes.
-        duree_option_l=$((fin_timer_l - debut_timer_l))
-
-        option_oblig=$(("$option_oblig"+1))
-
         # Affichez la durée.
         echo -e "\nLe traitement de l'option -l a pris $duree_option_l secondes.\n"
 
@@ -339,9 +324,7 @@ END {
         awk -F";" '{print $1 ";" $3 ";" $4}' demo/ref.csv > demo/reference_offi.csv
         option_oblig=$(("$option_oblig"+1))
     fi
-
-fi
-
+    
 done
 
 #--------------------------------------------------------------------------------------------------------------#
