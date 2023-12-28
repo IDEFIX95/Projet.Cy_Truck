@@ -239,54 +239,22 @@ EOF
     fi
 
 
-
     if [ "$i" == $option_t ];then
         # Enregistrez le temps de début
         debut_timer_t=$(date +%s)
-        
-       awk -F";" '{
-    compteur[$1,$3] += 1
-} 
-END {
-    for (key in compteur) {
-        split(key, parts, SUBSEP)
-        print parts[1] ";" parts[2] ";" compteur[key]
-    }
-}' data/data.csv > demo/t_intermediaire_depart2.csv
-
-
-#cat demo/t_intermediaire_depart.csv >> demo/t_intermediaire_arrivee.csv
-#awk -F";" '!seen[$1,$2]++ {print $1 ";" $2 }' demo/t_intermediaire_arrivee.csv > demo/t_test_doublon.csv
-
-        #./progc/filtre_t
-        
-        #awk -F";" '{
-    #if (!(($1,$3) in villes)) {
-    #    villes[$3,$1] = 1
-    #    compteur[$3] += 1
-    #}
-#} 
-#END {
-    #for (ville in compteur) {
-    #    print ville ";" compteur[ville]
-    #}
-#}' data/data.csv > demo/t_intermediaire_depart.csv
-
-    #    awk -F";" '{
-    #if (!(($1,$4) in villes)) {
-    #    villes[$4,$1] = 1
-     #   compteur[$4] += 1
-    #}
-#} 
-#END {
-  #  for (ville in compteur) {
-     #   print ville ";" compteur[ville]
-    #}
-#}' data/data.csv > demo/t_intermediaire_arrivee.csv
-        #touch temp/t_filtre.csv
-        #./progc/filtre_t
-        #filtrage en .c
-        #On peut faire un head -10 sur le fichier de tri a la fin
+        touch temp/fichier_col4.csv
+        touch temp/fichier_col2_3.csv
+        touch temp/additionville.csv
+        touch temp/addition_ville_villedepart.csv
+        touch temp/total_trajets_decroissant.csv
+        touch temp/total_trajet_decroissant_villededepart.csv
+        touch temp/fichierfusionnertrajets.csv
+        touch demo/fichier_final.csv
+        ./progc/etape1_filtre_t
+        ./progc/etape2_IsoCol2_3
+        ./progc/etape3_comptage
+        ./progc/etape4_triersomme
+        ./progc/etape5_traitement_finale
         fin_timer_t=$(date +%s)
 
         # Calculez la durée totale en secondes
