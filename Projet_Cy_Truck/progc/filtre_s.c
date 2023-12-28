@@ -8,7 +8,7 @@ struct Statistique {
     int id;
     float min;
     float max;
-    int somme;
+    float somme;
     int count;
     float moyenne;
     float difference;
@@ -34,8 +34,9 @@ int main() {
 
     char line[BUFFER_SIZE];
     while (fgets(line, sizeof(line), input)) {
-        int id, value;
-        if (sscanf(line, "%d;%d", &id, &value) != 2) {
+        int id; 
+        float value;
+        if (sscanf(line, "%d;%f", &id, &value) != 2) {
             fprintf(stderr, "Erreur lors de la lecture de la ligne : %s", line);
             continue; // Ignorer la ligne incorrecte et passer à la suivante
         }
