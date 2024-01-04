@@ -54,30 +54,32 @@ fi
 
 #--------------------------------------------------------------------------------------------------------------#
 
-# Vérifier si le fichier source C existe.
-if [ -e "progc/main.c" ]; then
-    echo "Le fichier source C main.c est présent."
-    if [ ! -e "progc/main" ]; then
-    # Se déplacer dans le répertoire progc.
-    cd progc
+# Vérifier si les fichiers source C sont présents.
+if [ -e "progc/filtre_s.c" ] && [ -e "progc/trier_fichier_s" ] && [ -e "progc/etape1_filtre_t.c" ] && [ -e "progc/etape2_IsoCol2_3.c" ] && [ -e "progc/etape3_comptage.c" ] && [ -e "progc/etape4_triersomme.c" ] && [ -e "progc/etape5_traitement_finale.c" ]; then
+    echo "Les fichiers source C sont présents."
 
-    # Compilation du fichier C.
-    make all
-
-    # Vérification du statut de la compilation.
-    if [ $? -eq 0 ]; then
-        echo "La compilation s'est bien déroulée. L'exécutable main a été créé."
+    # Vérifier si les exécutables pour tous les fichiers source sont présents.
+    if [ -x "progc/filtre_s" ] && [ -x "progc/trier_fichier_s" ] && [ -x "progc/etape1_filtre_t" ] && [ -x "progc/etape2_IsoCol2_3" ] && [ -x "progc/etape3_comptage" ] && [ -x "progc/etape4_triersomme" ] && [ -x "progc/etape5_traitement_finale" ]; then
+        echo "Les exécutables sont présents sur le disque dur."
     else
-        echo "Erreur lors de la compilation."
-    fi
+        # Se déplacer dans le répertoire progc.
+        cd progc
 
-    # Revenir au répertoire initial.
-   cd ..
-    else 
-        echo "L'executable C est present sur le disque dur"
+        # Compilation de tous les fichiers C.
+        make all
+
+        # Vérification du statut de la compilation.
+        if [ $? -eq 0 ]; then
+            echo "La compilation s'est bien déroulée. Les exécutables ont été créés."
+        else
+            echo "Erreur lors de la compilation."
+        fi
+
+        # Revenir au répertoire initial.
+        cd ..
     fi
 else
-    echo "Le fichier source C main.c n'est pas trouvé. Lancement de la compilation."
+    echo "Certains fichiers source C ne sont pas trouvés. Lancement de la compilation."
 fi
 
 #--------------------------------------------------------------------------------------------------------------#
@@ -272,6 +274,8 @@ EOF
         awk -F";" ' FNR > 1 {print $1 ";" $5}' data/data.csv > temp/s_intermediaire_calcul.csv
         touch temp/s_filtre.csv
         ./progc/filtre_s
+        touch demo/fichier_traite_opt_s.csv
+        ./progc/trier_fichier_s
         fin_timer_s=$(date +%s)
         # Calculez la durée totale en secondes
         duree_option_s=$((fin_timer_s - debut_timer_s))
