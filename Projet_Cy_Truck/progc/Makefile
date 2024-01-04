@@ -2,6 +2,10 @@ EXEC_filtre_s = filtre_s
 SRC_filtre_s = filtre_s.c
 OBJ_filtre_s = $(SRC_filtre_s:.c=.o)
 
+EXEC_trier_fichier_s = trier_fichier_s
+SRC_trier_fichier_s = trier_fichier_s.c
+OBJ_trier_fichier_s = $(SRC_trier_fichier_s:.c=.o)
+
 EXEC_etape1_filtre_t = etape1_filtre_t
 SRC_etape1_filtre_t = etape1_filtre_t.c
 OBJ_etape1_filtre_t = $(SRC_etape1_filtre_t:.c=.o)
@@ -22,42 +26,54 @@ EXEC_etape5_traitement_finale = etape5_traitement_finale
 SRC_etape5_traitement_finale = etape5_traitement_finale.c
 OBJ_etape5_traitement_finale = $(SRC_etape5_traitement_finale:.c=.o)
 
-
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
 
-all: $(EXEC_filtre_s) $(EXEC_etape1_filtre_t) $(EXEC_etape2_IsoCol2_3) $(EXEC_etape3_comptage) $(EXEC_etape4_triersomme) $(EXEC_etape5_traitement_finale)
+PROGRAMS = $(EXEC_filtre_s) $(EXEC_trier_fichier_s) $(EXEC_etape1_filtre_t) $(EXEC_etape2_IsoCol2_3) $(EXEC_etape3_comptage) $(EXEC_etape4_triersomme) $(EXEC_etape5_traitement_finale)
 
+all: check_sources $(PROGRAMS)
+
+check_sources:
+	@for file in $(SRC_filtre_s) $(SRC_trier_fichier_s) $(SRC_etape1_filtre_t) $(SRC_etape2_IsoCol2_3) $(SRC_etape3_comptage) $(SRC_etape4_triersomme) $(SRC_etape5_traitement_finale); do \
+		if [ ! -e $$file ]; then \
+			echo "Erreur: Le fichier $$file n'existe pas."; \
+			exit 1; \
+		fi; \
+	done
+	@echo "Tous les fichiers sources existent."
 
 $(EXEC_filtre_s): $(OBJ_filtre_s)
-		$(CC) -o $(EXEC_filtre_s) $(OBJ_filtre_s)
+	$(CC) -o $(EXEC_filtre_s) $(OBJ_filtre_s)
+
+$(EXEC_trier_fichier_s): $(OBJ_trier_fichier_s)
+	$(CC) -o $(EXEC_trier_fichier_s) $(OBJ_trier_fichier_s)
 
 $(EXEC_etape1_filtre_t): $(OBJ_etape1_filtre_t)
-		$(CC) -o $(EXEC_etape1_filtre_t) $(OBJ_etape1_filtre_t)
+	$(CC) -o $(EXEC_etape1_filtre_t) $(OBJ_etape1_filtre_t)
 
 $(EXEC_etape2_IsoCol2_3): $(OBJ_etape2_IsoCol2_3)
-		$(CC) -o $(EXEC_etape2_IsoCol2_3) $(OBJ_etape2_IsoCol2_3)
+	$(CC) -o $(EXEC_etape2_IsoCol2_3) $(OBJ_etape2_IsoCol2_3)
 
 $(EXEC_etape3_comptage): $(OBJ_etape3_comptage)
-		$(CC) -o $(EXEC_etape3_comptage) $(OBJ_etape3_comptage)
+	$(CC) -o $(EXEC_etape3_comptage) $(OBJ_etape3_comptage)
 
 $(EXEC_etape4_triersomme): $(OBJ_etape4_triersomme)
-		$(CC) -o $(EXEC_etape4_triersomme) $(OBJ_etape4_triersomme)
+	$(CC) -o $(EXEC_etape4_triersomme) $(OBJ_etape4_triersomme)
 
 $(EXEC_etape5_traitement_finale): $(OBJ_etape5_traitement_finale)
-		$(CC) -o $(EXEC_etape5_traitement_finale) $(OBJ_etape5_traitement_finale)
+	$(CC) -o $(EXEC_etape5_traitement_finale) $(OBJ_etape5_traitement_finale)
 
 %.o: %.c
-		$(CC) $(CFLAGS) -c $<
-
+	$(CC) $(CFLAGS) -c $<
 
 clean:
 	@echo "Suppression des fichiers objets et exécutables"
 	rm -f progc/$(OBJ_filtre_s) progc/$(EXEC_filtre_s)
+	rm -f progc/$(OBJ_trier_fichier_s) progc/$(EXEC_trier_fichier_s)
 	rm -f progc/$(OBJ_etape1_filtre_t) progc/$(EXEC_etape1_filtre_t)
 	rm -f progc/$(OBJ_etape2_IsoCol2_3) progc/$(EXEC_etape2_IsoCol2_3)
-	rm -f progc/$(OBJ_etape3_comptage) progc/$(EXEC_etape4_triersomme)
+	rm -f progc/$(OBJ_etape3_comptage) progc/$(EXEC_etape3_comptage)
 	rm -f progc/$(OBJ_etape4_triersomme) progc/$(EXEC_etape4_triersomme)
-	rm -f progc/$(OBJ_etape5_traitement_finale) prog/$(EXEC_etape5_traitement_finale)
+	rm -f progc/$(OBJ_etape5_traitement_finale) progc/$(EXEC_etape5_traitement_finale)
 
-.PHONY: all clean
+.PHONY: all clean check_sources
