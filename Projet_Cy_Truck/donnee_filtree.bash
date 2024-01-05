@@ -139,12 +139,11 @@ for i in "$@" ;do                             # La condition qui me permet de la
         set ylabel offset 92,0
         set ytic offset 83,0
         set yrange [0:250]
-
         set ytic rotate by 90
-
         set style histogram rowstacked
         set style fill solid border -1
         set boxwidth 0.5
+        unset key
 
         # Tracé du graphique
         set datafile separator ';'
@@ -188,12 +187,11 @@ EOF
         set ylabel offset 92,0
         set ytic offset 83,0
         set yrange [0:200000]
-
         set ytic rotate by 90
-
         set style histogram rowstacked
         set style fill solid border -1
         set boxwidth 0.5
+        unset key
 
         # Tracé du graphique
         set datafile separator ';'
@@ -231,6 +229,7 @@ EOF
         set style histogram rowstacked
         set style fill solid border -1
         set boxwidth 0.5
+        unset key
 
         # Tracé du graphique
         set datafile separator ';'
@@ -284,7 +283,33 @@ EOF
 
         # Affichez la durée
         echo -e "\nLe traitement de l'option -s a pris $duree_option_s secondes.\n"
+
+        # Partie graphique (gnuplot).
+        gnuplot << EOF
+        # Paramètres de sortie
+        set terminal pngcairo enhanced font 'Arial,10'
+        set output 'images/histogramme_t.png'
+
+        # Paramètres du graphique
+        set title 'Histogramme de traitement t'
+        set xlabel 'Nom des villes'
+        set ylabel 'Nombre de trajets'
+        set yrange [0:6000]
+        set style data histogram
+        set style histogram cluster gap 1
+        set style fill solid border -1
+        set boxwidth 1.50
+        set xtic rotate by -45
+
+        # Tracé du graphique
+        set datafile separator ';'
+        plot 'demo/fichier_final.csv' using 2:xtic(1) with histogram title "Nombre de trajets total" lc rgb 'blue', \
+        'demo/fichier_final.csv' using 3 with histogram title "Ville de départ d'un trajet" lc rgb 'red'
+EOF
+        xdg-open images/histogramme_t.png
+    
     fi
+
 
     if [ "$i" == "-supps_fichiers_demo" ];then
         rm -f demo/*.csv
