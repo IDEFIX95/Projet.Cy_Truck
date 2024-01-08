@@ -265,25 +265,7 @@ EOF
 
         # Affichez la durée
         echo -e "\nLe traitement de l'option -t a pris $duree_option_t secondes.\n" 
-    fi
-
-    if [ "$i" == "-s" ];then
-        # Enregistrez le temps de début
-        debut_timer_s=$(date +%s)
-        awk -F";" ' FNR > 1 {print $1 ";" $5}' data/data.csv > temp/s_intermediaire_calcul.csv
-        touch temp/s_filtre.csv
-        ./progc/filtre_s
-        touch demo/fichier_traite_opt_s.csv
-        ./progc/trier_fichier_s
-        fin_timer_s=$(date +%s)
-        # Calculez la durée totale en secondes
-        duree_option_s=$((fin_timer_s - debut_timer_s))
-
-        option_oblig=$(("$option_oblig"+1))
-
-        # Affichez la durée
-        echo -e "\nLe traitement de l'option -s a pris $duree_option_s secondes.\n"
-
+        
         # Partie graphique (gnuplot).
         gnuplot << EOF
         # Paramètres de sortie
@@ -307,6 +289,25 @@ EOF
         'demo/fichier_final.csv' using 3 with histogram title "Ville de départ d'un trajet" lc rgb 'red'
 EOF
         xdg-open images/histogramme_t.png
+        
+    fi
+
+    if [ "$i" == "-s" ];then
+        # Enregistrez le temps de début
+        debut_timer_s=$(date +%s)
+        awk -F";" ' FNR > 1 {print $1 ";" $5}' data/data.csv > temp/s_intermediaire_calcul.csv
+        touch temp/s_filtre.csv
+        ./progc/filtre_s
+        touch demo/fichier_traite_opt_s.csv
+        ./progc/trier_fichier_s
+        fin_timer_s=$(date +%s)
+        # Calculez la durée totale en secondes
+        duree_option_s=$((fin_timer_s - debut_timer_s))
+
+        option_oblig=$(("$option_oblig"+1))
+
+        # Affichez la durée
+        echo -e "\nLe traitement de l'option -s a pris $duree_option_s secondes.\n"
     
     fi
 
