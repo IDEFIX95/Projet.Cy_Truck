@@ -1,6 +1,8 @@
 // CE PROGRAMME PERMET D'EXTRAIRE COLONNE 4 DU FICHIER DATA.CSV VERS UN AUTRE FICHIER (AFIN DE TRAVAILLER SUR LE NOMBRE DE TRAJETS DES VILLES).
 // ETAPE 1.
 
+// Modifier cette partie pour pouvoir supprimer les doublons de ville A; ville B tel que Marseille;Marseille si c'est le cas ignorer cette ligne sinon 
+// ajouter la ville d'arrivée au fichier de sortie
 
 #include <stdio.h>
 #include <stdlib.h>
