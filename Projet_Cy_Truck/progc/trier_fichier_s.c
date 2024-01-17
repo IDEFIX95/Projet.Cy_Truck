@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TAILLE_BUFFER 1024
+#define TAILLE_BUFFER 4096
 
 typedef struct AVL {
     int id;
@@ -24,6 +24,10 @@ int min(int a, int b) {
 }
 
 pArbre rotationGauche(pArbre a) {
+    if (a == NULL || a->fd == NULL) {
+        return a;
+    }
+
     pArbre pivot = a->fd;
     a->fd = pivot->fg;
     pivot->fg = a;
@@ -36,6 +40,10 @@ pArbre rotationGauche(pArbre a) {
 }
 
 pArbre rotationDroite(pArbre a) {
+    if (a == NULL || a->fg == NULL) {
+        return a;
+    }
+
     pArbre pivot = a->fg;
     a->fg = pivot->fd;
     pivot->fd = a;
@@ -48,26 +56,38 @@ pArbre rotationDroite(pArbre a) {
 }
 
 pArbre doubleRotationGauche(pArbre a) {
+    if (a == NULL) {
+        return a;
+    }
+
     a->fd = rotationDroite(a->fd);
     a = rotationGauche(a);
     return a;
 }
 
 pArbre doubleRotationDroite(pArbre a) {
+    if (a == NULL) {
+        return a;
+    }
+
     a->fg = rotationGauche(a->fg);
     a = rotationDroite(a);
     return a;
 }
 
 pArbre equilibrerAVL(pArbre a) {
+    if (a == NULL) {
+        return a;
+    }
+
     if (a->h >= 2) {
-        if (a->fd->h >= 0) {
+        if (a->fd != NULL && a->fd->h >= 0) {
             return rotationGauche(a);
         } else {
             return doubleRotationGauche(a);
         }
     } else if (a->h <= -2) {
-        if (a->fg->h <= 0) {
+        if (a->fg != NULL && a->fg->h <= 0) {
             return rotationDroite(a);
         } else {
             return doubleRotationDroite(a);
@@ -88,7 +108,7 @@ pArbre creerNoeud(int id, float diff, float max, float min, float moy) {
         new->fg = NULL;
         new->fd = NULL;
     } else {
-        printf("Erreur d'allocation dynamique pour le nouveau nœud.\n");
+        fprintf(stderr, "Erreur d'allocation dynamique pour le nouveau nœud.\n");
     }
     return new;
 }
@@ -105,7 +125,7 @@ pArbre insertionAVL(pArbre x, int id, float diff, float max, float min, float mo
     } else if (diff == 0) {
         return x;
     }
-    
+
     if (*h != 0) {
         x->h = x->h + *h;
         x = equilibrerAVL(x);
@@ -121,6 +141,11 @@ pArbre insertionAVL(pArbre x, int id, float diff, float max, float min, float mo
 }
 
 void extrairecol5(pArbre *a, FILE *fichier) {
+    if (a == NULL || fichier == NULL) {
+        fprintf(stderr, "Erreur : Pointeur NULL passé à la fonction extrairecol5.\n");
+        return;
+    }
+
     char ligne[TAILLE_BUFFER];
     int h;
     int id;
@@ -159,9 +184,13 @@ void extrairecol5(pArbre *a, FILE *fichier) {
 }
 
 void parcoursDecroissant(pArbre a, FILE *fichierSortie, int *i, const int lim) {
-    if (a != NULL && *i <= lim) {
+    if (a == NULL || fichierSortie == NULL || i == NULL) {
+        return;
+    }
+
+    if (*i <= lim) {
         parcoursDecroissant(a->fd, fichierSortie, i, lim);
-        if (*i <= lim) {  // Ajout de cette vérification pour éviter l'incrémentation après avoir atteint la limite qu'est 50 (sinon on avait 60 id)
+        if (*i <= lim) {
             fprintf(fichierSortie, "%d;%d;%f;%f;%f;%f\n", *i, a->id, a->dist_min, a->dist_moy, a->dist_max, a->diff);
             (*i)++;
         }
@@ -177,10 +206,9 @@ void libererAVL(pArbre a) {
     }
 }
 
-int main(){
-
+int main() {
     FILE *fichier1, *fichier2;
-    pArbre a;
+    pArbre a = NULL;
 
     fichier1 = fopen("temp/s_filtre.csv", "r");
     if (fichier1 == NULL) {
