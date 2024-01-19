@@ -8,9 +8,10 @@ cd ..
 
 
 
-fichier_d_entrer="data/data.csv"
+fichier_d_entrer="$1"
 fichier_d_aide="progc/help.txt"
 
+dossier_data="data"
 dossier_temp="temp"
 dossier_images="images"
 
@@ -45,7 +46,17 @@ done
 
 #--------------------------------------------------------------------------------------------------------------#
 
-if [ "$1" == $fichier_d_entrer ]; then     # Regarde si le 1er argument de la ligne de commande est bien le chemin vers le fichier de donnée d'entrer.
+if [ ! -d "$dossier_data" ];then
+    mkdir data
+fi
+
+if [ -f "$dossier_data/*.csv" ];then
+    echo "Le fichier existe dans le dossier."
+else
+    echo "Le fichier n'existe pas dans le dossier."
+fi
+
+if [ "$1" == "$fichier_d_entrer" ]; then     # Regarde si le 1er argument de la ligne de commande est bien le chemin vers le fichier de donnée d'entrer.
     echo "Le chemin vers le fichier $fichier_d_entrer est bien le premier argument de la ligne de commande."
 else
     echo "Le chemin vers le fichier $fichier_d_entrer n'est pas mit comme premier argument"
