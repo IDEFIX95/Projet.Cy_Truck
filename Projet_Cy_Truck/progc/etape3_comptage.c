@@ -1,4 +1,4 @@
-//ETAPE 3.
+// ÉTAPE 3
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,13 +32,15 @@ pABR insertionABR(pABR a, char *c) {
     if (a == NULL) {
         a = creerchainon(c);
     } else {
-        int comparaisonVille = strcmp(c, a->ville);     // On compare la ville actuel dans le noeud de l'arbre avec la nouvelle ville à inserer
+        int comparaisonVille = strcmp(c, a->ville);     // On compare la ville actuelle dans le noeud de l'arbre avec la nouvelle ville à insérer.
         if (comparaisonVille < 0) {
             a->fg = insertionABR(a->fg, c);
-        } else if (comparaisonVille > 0) {
+        } 
+        else if (comparaisonVille > 0) {
             a->fd = insertionABR(a->fd, c);
-        } else {
-            a->somme++;                // On somme les villes deja rencontrées. De toute maniere si elles sont nouvelles leur somme prend 1 directement à l'aide de creerchainon.
+        } 
+        else {
+            a->somme++;                // On somme les villes déjà rencontrées. Si elles sont nouvelles, leur somme prend 1 directement à l'aide de la fonction creerchainon().
         }
     }
     return a;
@@ -127,10 +129,12 @@ int main() {
     pABR arbre2 = NULL;
 
 
-    /* Cette partie du filtrage va recuperer toutes les villes d'arrivées et le nombre d'apparition de cette meme ville.
-       Tous d'abord dans ExtraireLignesDuCol2 on va extraire la colonne des villes d'arrivées du fichier fichier_col4.csv
-       la somme à la rencontre de nouvelles villes ou de villes deja presente dans l'arbre va s'effectuer à l'aide de insertAVL.
-       Ensuite on va utiliser un avl ou on va stocker toutes les villes et on va parcourir cette avl à l'aide de parcoursdecroissant */
+    /* Cette partie du filtrage va récupérer toutes les villes d'arrivées et le nombre d'apparitions de cette même ville.
+       Tout d'abord, dans la fonction ExtraireLignesDuCol2(), on va extraire la colonne des villes d'arrivées du fichier "fichier_col4.csv".
+       Puis, la somme à la rencontre de nouvelles villes ou de villes déjà présentes dans l'arbre va s'effectuer à l'aide de la fonction insertAVL().
+       Enfin, on va utiliser un AVL où l'on va stocker toutes les villes et on va parcourir cette AVL à l'aide de la fonction parcoursdecroissant(). */
+
+    
     ExtraireLignesDuCol2(&arbre, fichier1);
     printf("Fin de l'extraction des lignes du fichier.\n");  // Message de débogage
     parcoursdecroissant(arbre, fichier2);
@@ -146,7 +150,8 @@ int main() {
     if (feof(fichier1)) {
         printf("Fin du fichier d'entrée atteinte.\n");
         fclose(fichier1);
-    } else {
+    } 
+    else {
         perror("Erreur lors de la lecture du fichier d'entrée");
     }
 
