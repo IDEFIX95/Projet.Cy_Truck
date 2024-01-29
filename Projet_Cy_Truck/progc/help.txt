@@ -1,7 +1,7 @@
 Bienvenue sur le fichier d'aide du Projet Cy-Trucks 2023/2024
 
 Tout d'abord, voici comment lancer le programme avant même de choisir une ou des options :
-    => Veuillez taper dans le terminal la ligne suivante "/donnee_filtre.bash data/data.csv" suivi du chemin vers lequel se trouve le fichier de données.
+    => Veuillez taper dans le terminal la ligne suivante "./donnee_filtre.bash data/data.csv" suivi du chemin vers lequel se trouve le fichier de données.
 
     La liste des options disponibles :
         -> L'option "-h" qui vous permet d'avoir accès à ce fichier et de vous montrer jusqu'où vous pouvez aller en termes d'options pour ce projet.
