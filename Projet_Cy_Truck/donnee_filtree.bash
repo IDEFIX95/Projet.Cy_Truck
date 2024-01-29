@@ -269,7 +269,7 @@ EOF
         touch temp/total_trajet_decroissant_villededepart.csv
         touch temp/fichierfusionnertrajets.csv
         touch demo/fichier_final.csv
-        ./progc/etape1_filtre_t
+        ./progc/etape1_filtre_t "$fichier_d_entrer"
         ./progc/etape2_IsoCol2_3
         ./progc/etape3_comptage
         ./progc/etape4_triersomme
