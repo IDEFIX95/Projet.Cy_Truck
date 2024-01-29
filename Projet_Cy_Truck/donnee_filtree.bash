@@ -266,7 +266,7 @@ EOF
         ./progc/etape2_IsoCol2_3
         ./progc/etape3_comptage
         ./progc/etape4_triersomme
-        ./progc/etape5_traitement_finale
+        ./progc/etape5_traitement_final
         fin_timer_t=$(date +%s)
 
         # Calculez la durée totale en secondes
