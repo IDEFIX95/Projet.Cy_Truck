@@ -9,7 +9,7 @@
 #include <string.h>
 
 #define TAILLE_BUFFER 1024
-#define FICHIER_ENTREE "data/data.csv"
+#define FICHIER_SORTIE "data/data.csv"
 #define FICHIER_SORTIE "temp/fichier_col4.csv"
 
 void copierdonnee(FILE *fichierEntree, FILE *fichierSortie) {
@@ -36,11 +36,11 @@ void copierdonnee(FILE *fichierEntree, FILE *fichierSortie) {
 }
 
 
-int main() {
+int main(int argc, char* argv[]) {
     FILE *fichier1, *fichier2;
 
     // Ouvrir le fichier d'entrée en mode lecture
-    fichier1 = fopen(FICHIER_ENTREE, "r");
+    fichier1 = fopen(argv[1], "r");
     if (fichier1 == NULL) {
         fprintf(stderr, "Erreur lors de l'ouverture du fichier d'entrée '%s'\n", FICHIER_ENTREE);
         return 1;
