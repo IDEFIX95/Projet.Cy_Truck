@@ -15,18 +15,20 @@ typedef struct AVL {
     int h;
 } Arbre, *pArbre;
 
-int max(int a, int b) {         //retourne le maximum entre deux entiers
+int max(int a, int b) {         //Retourne le maximum entre deux entiers
   if (a > b) {
     return a;
-  } else {
+  } 
+  else {
     return b;
   }
 }
 
-int min(int a, int b) {         //retourne le minimum entre deux entiers
+int min(int a, int b) {         //Retourne le minimum entre deux entiers
   if (a < b) {
     return a;
-  } else {
+  } 
+  else {
     return b;
   }
 }
@@ -105,20 +107,23 @@ pArbre equilibrerAVL(pArbre a) {
     //printf("Nœud avant équilibrage : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
 
     if (a->h >= 2) {
-        // sous-arbre droit plus profond
+        //Sous-arbre droit plus profond
         if (a->fd->h >= 0) {
             //printf("Rotation Gauche choisie.\n");
             return rotationGauche(a);
-        } else {
+        } 
+        else {
             //printf("Double Rotation Gauche choisie.\n");
             return doubleRotationGauche(a);
         }
-    } else if (a->h <= -2) {
-        // sous-arbre gauche plus profond
+    } 
+    else if (a->h <= -2) {
+        //Sous-arbre gauche plus profond
         if (a->fg->h <= 0) {
             //printf("Rotation Droite choisie.\n");
             return rotationDroite(a);
-        } else {
+        }
+        else {
             //printf("Double Rotation Droite choisie.\n");
             return doubleRotationDroite(a);
         }
@@ -143,7 +148,8 @@ pArbre creerNoeud(int id, float diff, float max, float min, float moy) {
         new->fg = NULL;
         new->fd = NULL;
         //printf("Nouveau nœud créé : (id: %d, diff: %f, h: %d)\n", new->id, new->diff, new->h);
-    } else {
+    } 
+    else {
         printf("Erreur d'allocation dynamique pour le nouveau nœud.\n");
     }
     return new;
@@ -154,14 +160,17 @@ pArbre insertionAVL(pArbre x, int id, float diff, float max, float min, float mo
     if (x == NULL) {
         *h = 1;
         return creerNoeud(id, diff, max, min, moy);
-    } else if (diff < x->diff) {
+    } 
+    else if (diff < x->diff) {
         //printf("Insertion dans le sous-arbre gauche.\n");
         x->fg = insertionAVL(x->fg, id, diff, max, min, moy, h);
         *h = -*h;
-    } else if (diff > x->diff) {
+    } 
+    else if (diff > x->diff) {
         //printf("Insertion dans le sous-arbre droit.\n");
         x->fd = insertionAVL(x->fd, id, diff, max, min, moy, h);
-    } else if (diff == 0) {
+    } 
+    else if (diff == 0) {
         //printf("Le nœud avec la même différence existe déjà.\n");
         return x;
     }
@@ -172,7 +181,8 @@ pArbre insertionAVL(pArbre x, int id, float diff, float max, float min, float mo
 
         if (x->h == 0) {
             *h = 0;
-        } else {
+        } 
+        else {
             *h = 1;
         }
         //printf("Équilibrage effectué. Nouvelle hauteur : %d\n", x->h);
@@ -199,22 +209,26 @@ void extrairecol5(pArbre *a, FILE *fichier) {
             while (token2 != NULL) {
                 if (colonne == 1) {
                     id = atoi(token2);
-                } else if (colonne == 2) {
+                } 
+                else if (colonne == 2) {
                     mini = atof(token2);
-                } else if (colonne == 3) {
+                } 
+                else if (colonne == 3) {
                     moy = atof(token2);
-                } else if (colonne == 4) {
+                } 
+                else if (colonne == 4) {
                     maxi = atof(token2);
-                } else if (colonne == 5) {
-                    // Limiter la précision à 3 chiffres après la virgule
+                } 
+                else if (colonne == 5) {
+                    //Limiter la précision à 3 chiffres après la virgule
                     float diff;
                     sscanf(token2, "%f", &diff);
                     char diffStr[TAILLE_BUFFER];
                     snprintf(diffStr, sizeof(diffStr), "%.3f", diff);
                     diff = atof(diffStr);
 
-                    //printf("diff : %f\n", diff);
-                    //printf("ligne : %d\n", i);
+                    //printf("Diff : %f\n", diff);
+                    //printf("Ligne : %d\n", i);
                     *a = insertionAVL(*a, id, diff, maxi, mini, moy, &h);
                     i++;
                     //printf("------------------------------------------------\n");
@@ -263,7 +277,7 @@ int main(){
     fichier2 = fopen("fichier_traite_opt-s.csv", "w");
     if (fichier2 == NULL) {
         perror("Erreur lors de l'ouverture du fichier en écriture");
-        fclose(fichier1); // Fermez le fichier déjà ouvert
+        fclose(fichier1); //Fermer le fichier déjà ouvert
         return 1;
     }
 
