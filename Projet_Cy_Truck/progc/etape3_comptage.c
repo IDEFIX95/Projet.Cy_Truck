@@ -131,8 +131,8 @@ int main() {
 
     /* Cette partie du filtrage va récupérer toutes les villes d'arrivées et le nombre d'apparitions de cette même ville.
        Tout d'abord, dans la fonction ExtraireLignesDuCol2(), on va extraire la colonne des villes d'arrivées du fichier "fichier_col4.csv".
-       Puis, la somme à la rencontre de nouvelles villes ou de villes déjà présentes dans l'arbre va s'effectuer à l'aide de la fonction insertAVL().
-       Enfin, on va utiliser un AVL où l'on va stocker toutes les villes et on va parcourir cette AVL à l'aide de la fonction parcoursdecroissant(). */
+       Puis, la somme à la rencontre de nouvelles villes ou de villes déjà présentes dans l'arbre va s'effectuer à l'aide de la fonction insertionABR().
+       Enfin, on va utiliser un ABR où l'on va stocker toutes les villes et on va parcourir cette ABR à l'aide de la fonction parcoursdecroissant(). */
 
     
     ExtraireLignesDuCol2(&arbre, fichier1);
