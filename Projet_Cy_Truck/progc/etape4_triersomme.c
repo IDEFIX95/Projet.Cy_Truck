@@ -1,4 +1,4 @@
-//ETAPE 4.
+// ÉTAPE 4
 
 
 #include <stdio.h>
@@ -15,23 +15,28 @@ typedef struct AVL {
     int h;
 } Arbre, *pArbre;
 
-int max(int a, int b) {         //retourne le maximum entre deux entiers
+
+int max(int a, int b) {         // Retourne le maximum entre deux entiers
   if (a > b) {
     return a;
-  } else {
+  } 
+  else {
     return b;
   }
 }
 
-int min(int a, int b) {         //retourne le minimum entre deux tniers
+
+int min(int a, int b) {         // Retourne le minimum entre deux entiers
   if (a < b) {
     return a;
-  } else {
+  } 
+  else {
     return b;
   }
 }
 
-pArbre rotationGauche(pArbre a) {       //rotation gauche du noeud
+
+pArbre rotationGauche(pArbre a) {        // Rotation gauche du noeud
     pArbre pivot=a->fd;
     a->fd=pivot->fg;
     pivot->fg=a;
@@ -45,7 +50,8 @@ pArbre rotationGauche(pArbre a) {       //rotation gauche du noeud
    return a;
 }
 
-pArbre rotationDroite(pArbre a) {       //rotation droite du noeud
+
+pArbre rotationDroite(pArbre a) {        // Rotation droite du noeud
    pArbre pivot=a->fg;
     a->fg=pivot->fd;
     pivot->fd=a;
@@ -58,29 +64,35 @@ pArbre rotationDroite(pArbre a) {       //rotation droite du noeud
    return a;
 }
 
-pArbre doubleRotationGauche(pArbre a) {     //double rotation gauche du noeud
-   a->fd = rotationDroite(a->fd);           //rotation droite du fils droit de a
-   return rotationGauche(a);                //rotation gauche de a
+
+pArbre doubleRotationGauche(pArbre a) {     // Double rotation gauche du noeud
+   a->fd = rotationDroite(a->fd);           // Rotation droite du fils droit de a
+   return rotationGauche(a);                // Rotation gauche de a
 }
 
-pArbre doubleRotationDroite(pArbre a) {     //double rotation droite du noeud
-   a->fg = rotationGauche(a->fg);           //rotation gauche du fils droit de a
-   return rotationDroite(a);                //rotation droite de a
+
+pArbre doubleRotationDroite(pArbre a) {     // Double rotation droite du noeud
+   a->fg = rotationGauche(a->fg);           // Rotation gauche du fils droit de a
+   return rotationDroite(a);                // Rotation droite de a
 }
 
-pArbre equilibrerAVL(pArbre a) {            //equilibrage d'un AVL
+
+pArbre equilibrerAVL(pArbre a) {            // Équilibrage d'un AVL
    if (a->h >= 2) {
-      // sous-arbre droit plus profond
+      // Sous-arbre droit plus profond
       if (a->fd->h >= 0) {
          return rotationGauche(a);
-      } else {
+      } 
+      else {
          return doubleRotationGauche(a);
       }
-   } else if (a->h <= -2) {
-      // sous-arbre gauche plus profond
+   } 
+   else if (a->h <= -2) {
+      // Sous-arbre gauche plus profond
       if (a->fg->h <= 0) {
          return rotationDroite(a);
-      } else {
+      } 
+      else {
          return doubleRotationDroite(a);
       }
    }
@@ -102,29 +114,30 @@ pArbre creerNoeud(int somme, char *ville) {
     return new;
 }
 
+
 pArbre insertionAVL(pArbre x, int e, char *c, int *h) {
     int comparaisonVille;
     if (x == NULL) {
         *h = 1;
-
         return creerNoeud(e, c);
-    } else if (e < x->somme) {
-
+    }
+    else if (e < x->somme) {
         x->fg = insertionAVL(x->fg, e, c, h);
         *h = -*h;
-    } else if (e > x->somme) {
- 
+    }
+    else if (e > x->somme) {
         x->fd = insertionAVL(x->fd, e, c, h);
-    } else {
+    } 
+    else {
         comparaisonVille = strcmp(c, x->ville);
         if (comparaisonVille < 0) {
-
             x->fg = insertionAVL(x->fg, e, c, h);
             *h = -*h;
-        } else if (comparaisonVille > 0) {
-
+        } 
+        else if (comparaisonVille > 0) {
             x->fd = insertionAVL(x->fd, e, c, h);
-        } else {
+        } 
+        else {
             *h = 0;
             return x;
         }
@@ -136,13 +149,13 @@ pArbre insertionAVL(pArbre x, int e, char *c, int *h) {
 
         if (x->h == 0){
             *h = 0;
-        } else {
+        }
+        else {
             *h = 1;
         }
     }
     return x;
 }
-
 
 
 void ResultatSomme(pArbre *a, FILE *fichier) {
@@ -197,13 +210,13 @@ int main(){
 
     FILE *fichier3 = fopen("temp/total_trajets_decroissant.csv", "w");
     if (fichier3 == NULL) {
-        perror("Erreur lors de l'ouverture du fichier de sortie");
+        perror("Erreur lors de l'ouverture du fichier de sortie.");
         return 1;
     }
 
     FILE *fichier4 = fopen("temp/total_trajet_decroissant_villededepart.csv", "w");
     if (fichier4 == NULL) {
-        perror("Erreur lors de l'ouverture du fichier de sortie");
+        perror("Erreur lors de l'ouverture du fichier de sortie.");
         return 1;
     }
 
@@ -225,8 +238,9 @@ int main(){
     if (feof(fichier1)) {
         printf("Fin du fichier d'entrée atteinte.\n");
         fclose(fichier1);
-    } else {
-        perror("Erreur lors de la lecture du fichier d'entrée");
+    } 
+    else {
+        perror("Erreur lors de la lecture du fichier d'entrée.");
     }
 
     fclose(fichier2);
