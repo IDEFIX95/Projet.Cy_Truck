@@ -40,7 +40,7 @@ pABR insertionABR(pABR a, char *c) {
             a->fd = insertionABR(a->fd, c);
         } 
         else {
-            a->somme++;                // On somme les villes déjà rencontrées. Si elles sont nouvelles, leur somme prend 1 directement à l'aide de la fonction creerchainon().
+            a->somme++;                                 // On somme les villes déjà rencontrées. Si elles sont nouvelles, leur somme prend 1 directement à l'aide de la fonction creerchainon().
         }
     }
     return a;
