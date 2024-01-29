@@ -83,13 +83,16 @@ pArbre equilibrerAVL(pArbre a) {
     if (a->h >= 2) {
         if (a->fd != NULL && a->fd->h >= 0) {
             return rotationGauche(a);
-        } else {
+        } 
+        else {
             return doubleRotationGauche(a);
         }
-    } else if (a->h <= -2) {
+    } 
+    else if (a->h <= -2) {
         if (a->fg != NULL && a->fg->h <= 0) {
             return rotationDroite(a);
-        } else {
+        } 
+        else {
             return doubleRotationDroite(a);
         }
     }
@@ -107,7 +110,8 @@ pArbre creerNoeud(int id, float diff, float max, float min, float moy) {
         new->h = 0; 
         new->fg = NULL;
         new->fd = NULL;
-    } else {
+    } 
+    else {
         fprintf(stderr, "Erreur d'allocation dynamique pour le nouveau nœud.\n");
     }
     return new;
@@ -117,12 +121,15 @@ pArbre insertionAVL(pArbre x, int id, float diff, float max, float min, float mo
     if (x == NULL) {
         *h = 1;
         return creerNoeud(id, diff, max, min, moy);
-    } else if (diff < x->diff) {
+    } 
+    else if (diff < x->diff) {
         x->fg = insertionAVL(x->fg, id, diff, max, min, moy, h);
         *h = -*h;
-    } else if (diff > x->diff) {
+    } 
+    else if (diff > x->diff) {
         x->fd = insertionAVL(x->fd, id, diff, max, min, moy, h);
-    } else if (diff == 0) {
+    } 
+    else if (diff == 0) {
         return x;
     }
 
@@ -142,7 +149,7 @@ pArbre insertionAVL(pArbre x, int id, float diff, float max, float min, float mo
 
 void extrairecol5(pArbre *a, FILE *fichier) {
     if (a == NULL || fichier == NULL) {
-        fprintf(stderr, "Erreur : Pointeur NULL passé à la fonction extrairecol5.\n");
+        fprintf(stderr, "Erreur : Pointeur NULL passé à la fonction extrairecol5().\n");
         return;
     }
 
@@ -162,13 +169,17 @@ void extrairecol5(pArbre *a, FILE *fichier) {
             while (token2 != NULL) {
                 if (colonne == 1) {
                     id = atoi(token2);
-                } else if (colonne == 2) {
+                } 
+                else if (colonne == 2) {
                     mini = atof(token2);
-                } else if (colonne == 3) {
+                } 
+                else if (colonne == 3) {
                     moy = atof(token2);
-                } else if (colonne == 4) {
+                } 
+                else if (colonne == 4) {
                     maxi = atof(token2);
-                } else if (colonne == 5) {
+                } 
+                else if (colonne == 5) {
                     float diff = atof(token2);
                     i++;
                     *a = insertionAVL(*a, id, diff, maxi, mini, moy, &h);
@@ -212,13 +223,13 @@ int main() {
 
     fichier1 = fopen("temp/s_filtre.csv", "r");
     if (fichier1 == NULL) {
-        perror("Erreur lors de l'ouverture du fichier en lecture");
+        perror("Erreur lors de l'ouverture du fichier en lecture.");
         return 1;
     }
 
     fichier2 = fopen("demo/fichier_traite_opt_s.csv", "w");
     if (fichier2 == NULL) {
-        perror("Erreur lors de l'ouverture du fichier en écriture");
+        perror("Erreur lors de l'ouverture du fichier en écriture.");
         fclose(fichier1);
         return 1;
     }
