@@ -4,8 +4,7 @@ make all > /dev/null 2> $
 cd ..
 
 
-# Variables des Options.
-
+# Variables des options.
 
 
 fichier_d_entrer="$1"
@@ -21,23 +20,24 @@ option_oblig=0
 
 #--------------------------------------------------------------------------------------------------------------#
 
-# Vérification l'existance des logiciels pour la partie graphiques.
+# Vérification de l'existance des logiciels pour la partie graphique (Gnuplot).
+
 logiciels=("gnuplot" "convert")
 
 for logiciel in "${logiciels[@]}"
 do
     if command -v "$logiciel" &> /dev/null 
     then
-        echo "les logiciels nécéssaires sont installés sur votre système."
+        echo "Les logiciels nécessaires sont installés sur votre système."
     else
-        echo "les logiciels nécéssaires ne sont pas installés sur votre système. Installation en cours..."
+        echo "les logiciels nécessaires ne sont pas installés sur votre système. Installation en cours..."
         # Installation.
         sudo apt-get update
         sudo apt-get install gnuplot imagemagick
 
-        # Vérification l'installation.
+        # Vérification de l'installation.
         if [ $? -eq 0 ]; then
-            echo "les logiciels ont été installés avec succès."
+            echo "Les logiciels ont été installés avec succès."
         else
             echo "Erreur lors de l'installation des logiciels."
         fi
@@ -56,21 +56,21 @@ else
     echo "Le fichier n'existe pas dans le dossier."
 fi
 
-if [ "$1" == "$fichier_d_entrer" ]; then     # Regarde si le 1er argument de la ligne de commande est bien le chemin vers le fichier de donnée d'entrer.
+if [ "$1" == "$fichier_d_entrer" ]; then     # Regarde si le premier argument de la ligne de commande est bien le chemin vers le fichier de données d'entrée.
     echo "Le chemin vers le fichier $fichier_d_entrer est bien le premier argument de la ligne de commande."
 else
-    echo "Le chemin vers le fichier $fichier_d_entrer n'est pas mit comme premier argument"
+    echo "Le chemin vers le fichier $fichier_d_entrer n'est pas mis comme premier argument."
     exit 1
 fi
 
 #--------------------------------------------------------------------------------------------------------------#
 
 # Vérifier si les fichiers source C sont présents.
-if [ -e "progc/filtre_s.c" ] && [ -e "progc/trier_fichier_s" ] && [ -e "progc/etape1_filtre_t.c" ] && [ -e "progc/etape2_IsoCol2_3.c" ] && [ -e "progc/etape3_comptage.c" ] && [ -e "progc/etape4_triersomme.c" ] && [ -e "progc/etape5_traitement_finale.c" ]; then
+if [ -e "progc/filtre_s.c" ] && [ -e "progc/trier_fichier_s" ] && [ -e "progc/etape1_filtre_t.c" ] && [ -e "progc/etape2_IsoCol2_3.c" ] && [ -e "progc/etape3_comptage.c" ] && [ -e "progc/etape4_triersomme.c" ] && [ -e "progc/etape5_traitement_final.c" ]; then
     echo "Les fichiers source C sont présents."
 
     # Vérifier si les exécutables pour tous les fichiers source sont présents.
-    if [ -x "progc/filtre_s" ] && [ -x "progc/trier_fichier_s" ] && [ -x "progc/etape1_filtre_t" ] && [ -x "progc/etape2_IsoCol2_3" ] && [ -x "progc/etape3_comptage" ] && [ -x "progc/etape4_triersomme" ] && [ -x "progc/etape5_traitement_finale" ]; then
+    if [ -x "progc/filtre_s" ] && [ -x "progc/trier_fichier_s" ] && [ -x "progc/etape1_filtre_t" ] && [ -x "progc/etape2_IsoCol2_3" ] && [ -x "progc/etape3_comptage" ] && [ -x "progc/etape4_triersomme" ] && [ -x "progc/etape5_traitement_final" ]; then
         echo "Les exécutables sont présents sur le disque dur."
     else
         # Se déplacer dans le répertoire progc.
@@ -104,34 +104,34 @@ fi
 
 #--------------------------------------------------------------------------------------------------------------#
 
-##Gestion des Options (Parcour de la la ligne de Commande pour reperer les Options).
+# Gestion des options : parcours de la ligne de commande pour repérer les options.
 
-for i in "$@" ;do                             # La condition qui me permet de lancer l'option aide et donc de faire apparaitre le fichier help.
+for i in "$@" ;do                             # La condition qui permet de lancer l'option aide et donc de faire apparaître le fichier help.
     if [ "$i" == $fichier_d_entrer ] ;then
         option_oblig=$(("$option_oblig"+1))
     fi
     if [ "$i" == "-h" ];then
-        echo -e "Le fichier help est apparue dans le dossier progc\n"
+        echo -e "Le fichier help est apparue dans le dossier progc.\n"
         gedit "$fichier_d_aide"
         exit 1  
     fi
     if [ "$i" == "-d1" ];then
-        # Enregistrez le temps de début.
+        # Enregistrer le temps de début.
         debut_timer_d1=$(date +%s)
         
         awk -F";" '/;1;/ {compteur[$6] += 1} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr | head -10 > demo/d1_final.csv
         
         fin_timer_d1=$(date +%s)
 
-        # Calculez la durée totale en secondes.
+        # Calculer la durée totale (en secondes).
         duree_option_d1=$((fin_timer_d1 - debut_timer_d1))
 
         option_oblig=$(("$option_oblig"+1))
 
-        # Affichez la durée.
+        # Afficher la durée.
         echo -e "\nLe traitement de l'option -d1 a pris $duree_option_d1 secondes.\n"
 
-        #Partie graphique (gnuplot).
+        # Partie graphique (Gnuplot).
         gnuplot << EOF
 
         # Paramètres de sortie
@@ -142,9 +142,9 @@ for i in "$@" ;do                             # La condition qui me permet de la
         set bmargin 13    # Ajuster la marge inférieure (en unités par défaut)
         set rmargin 10
         set lmargin 2
-        set title 'Histogramme de traitement d1'
-        set xlabel 'Conducteurs'
-        set ylabel 'Nombre de trajets'
+        set title 'HISTOGRAMME DE TRAITEMENT -d1'
+        set xlabel 'CONDUCTEURS'
+        set ylabel 'NOMBRE DE TRAJETS'
         set xtic rotate by 90 offset 0,-9
         set xlabel rotate by 180 offset 0,-9
         set ylabel offset 92,0
@@ -161,25 +161,25 @@ for i in "$@" ;do                             # La condition qui me permet de la
         plot 'demo/d1_final.csv' using 2:xtic(1) with boxes lc rgb 'blue'
 
 EOF
-        convert -rotate 90 images/histogramme_d1.png images/histogramme_d1.png  # Commande pour pivoter l'image afin de transformer en un histogramme horizontal.
+        convert -rotate 90 images/histogramme_d1.png images/histogramme_d1.png  # Commande pour pivoter l'image afin de la transformer en un histogramme horizontal.
         xdg-open images/histogramme_d1.png
     fi
 
     if [ "$i" == "-d2" ];then
-        # Enregistrez le temps de début.
+        # Enregistrer le temps de début.
         debut_timer_d2=$(date +%s)
         awk -F";" '{compteur[$6] += $5} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr | head -10 > demo/d2_final.csv
         fin_timer_d2=$(date +%s)
 
-        # Calculez la durée totale en secondes.
+        # Calculer la durée totale (en secondes).
         duree_option_d2=$((fin_timer_d2 - debut_timer_d2))
 
         option_oblig=$(("$option_oblig"+1))
 
-        # Affichez la durée.
+        # Afficher la durée.
         echo -e "\nLe traitement de l'option -d2 a pris $duree_option_d2 secondes.\n"
 
-        # Partie graphique (gnuplot).
+        # Partie graphique (Gnuplot).
         gnuplot << EOF
 
         # Paramètres de sortie
@@ -190,9 +190,9 @@ EOF
         set bmargin 13
         set rmargin 10
         set lmargin 2
-        set title 'Histogramme de traitement d2'
-        set xlabel 'Conducteurs'
-        set ylabel 'Distance totale (en kilomètres)'
+        set title 'HISTOGRAMME DE TRAITEMENT -d2'
+        set xlabel 'CONDUCTEURS'
+        set ylabel 'DISTANCE TOTALE (en km)'
         set xtic rotate by 90 offset 0,-9
         set xlabel rotate by 180 offset 0,-9
         set ylabel offset 92,0
@@ -209,33 +209,33 @@ EOF
         plot 'demo/d2_final.csv' using 2:xtic(1) with boxes lc rgb 'blue'
 
 EOF
-        convert -rotate 90 images/histogramme_d2.png images/histogramme_d2.png  # Commande pour pivoter l'image afin de transformer en un histogramme horizontal.
+        convert -rotate 90 images/histogramme_d2.png images/histogramme_d2.png  # Commande pour pivoter l'image afin de la transformer en un histogramme horizontal.
         xdg-open images/histogramme_d2.png
     fi
 
     if [ "$i" == "-l" ];then
-        # Enregistrez le temps de début.
+        # Enregistrer le temps de début.
         debut_timer_l=$(date +%s)
         awk -F";"  '{compteur[$1] += $5} END {for (id_trajet in compteur) print id_trajet ";" compteur[id_trajet]}' data/data.csv |sort -t";" -k2nr | head -10 | sort -t";" -k1n > demo/l_final.csv
         fin_timer_l=$(date +%s)
 
-        # Calculez la durée totale en secondes.
+        # Calculer la durée totale (en secondes).
         duree_option_l=$((fin_timer_l - debut_timer_l))
 
         option_oblig=$(("$option_oblig"+1))
-        # Affichez la durée.
+        # Afficher la durée.
         echo -e "\nLe traitement de l'option -l a pris $duree_option_l secondes.\n"
 
-        # Partie graphique (gnuplot).
+        # Partie graphique (Gnuplot).
         gnuplot << EOF
         # Paramètres de sortie
         set terminal pngcairo size 1200,800 enhanced font 'Arial,12'
         set output 'images/histogramme_l.png'
 
         # Paramètres du graphique
-        set title 'Histogramme de traitement l'
-        set xlabel 'Identifiant du trajet (route ID)'
-        set ylabel 'Distance (en kilomètres)'
+        set title 'HISTOGRAMME DE TRAITEMENT -l'
+        set xlabel 'IDENTIFIANT DU TRAJET (route ID)'
+        set ylabel 'DISTANCE (en km)'
         set yrange [0:3000]
         set style histogram rowstacked
         set style fill solid border -1
@@ -252,7 +252,7 @@ EOF
 
 
     if [ "$i" == $option_t ];then
-        # Enregistrez le temps de début
+        # Enregistrer le temps de début.
         debut_timer_t=$(date +%s)
         touch temp/fichier_col4.csv
         touch temp/fichier_col2_3.csv
@@ -269,24 +269,24 @@ EOF
         ./progc/etape5_traitement_final
         fin_timer_t=$(date +%s)
 
-        # Calculez la durée totale en secondes
+        # Calculer la durée totale (en secondes).
         duree_option_t=$((fin_timer_t - debut_timer_t))
 
         option_oblig=$(("$option_oblig"+1))
 
-        # Affichez la durée
+        # Afficher la durée.
         echo -e "\nLe traitement de l'option -t a pris $duree_option_t secondes.\n" 
         
-        # Partie graphique (gnuplot).
+        # Partie graphique (Gnuplot).
         gnuplot << EOF
         # Paramètres de sortie
         set terminal pngcairo size 1200,800 enhanced font 'Arial,12'
         set output 'images/histogramme_t.png'
 
         # Paramètres du graphique
-        set title 'Histogramme de traitement t'
-        set xlabel 'Nom des villes'
-        set ylabel 'Nombre de trajets'
+        set title 'HISTOGRAMME DE TRAITEMENT -t'
+        set xlabel 'NOM DES VILLES'
+        set ylabel 'NOMBRE DE TRAJETS'
         set yrange [0:6000]
         set style data histogram
         set style histogram cluster gap 1
@@ -296,7 +296,7 @@ EOF
 
         # Tracé du graphique
         set datafile separator ';'
-        plot 'demo/fichier_final.csv' using 2:xtic(1) with histogram title "Nombre de trajets total" lc rgb 'blue', \
+        plot 'demo/fichier_final.csv' using 2:xtic(1) with histogram title "Nombre total de trajets" lc rgb 'blue', \
         'demo/fichier_final.csv' using 3 with histogram title "Ville de départ d'un trajet" lc rgb 'red'
 EOF
         xdg-open images/histogramme_t.png
@@ -304,7 +304,7 @@ EOF
     fi
 
     if [ "$i" == "-s" ];then
-        # Enregistrez le temps de début
+        # Enregistrer le temps de début.
         debut_timer_s=$(date +%s)
         awk -F";" ' FNR > 1 {print $1 ";" $5}' data/data.csv > temp/s_intermediaire_calcul.csv
         touch temp/s_filtre.csv
@@ -312,24 +312,24 @@ EOF
         touch demo/fichier_traite_opt_s.csv
         ./progc/trier_fichier_s
         fin_timer_s=$(date +%s)
-        # Calculez la durée totale en secondes
+        # Calculer la durée totale (en secondes).
         duree_option_s=$((fin_timer_s - debut_timer_s))
 
         option_oblig=$(("$option_oblig"+1))
 
-        # Affichez la durée
+        # Afficher la durée.
         echo -e "\nLe traitement de l'option -s a pris $duree_option_s secondes.\n"
 
-        # Partie graphique (gnuplot).
+        # Partie graphique (Gnuplot).
         gnuplot << EOF
         # Paramètres de sortie
         set terminal pngcairo size 1200,800 enhanced font 'Arial,12'
         set output 'images/histogramme_s.png'
 
         # Paramètres du graphique
-        set title 'Histogramme de traitement s'
-        set xlabel 'Identifiant du trajet (route ID)'
-        set ylabel 'Distance (en km)'
+        set title 'HISTOGRAMME DE TRAITEMENT -s
+        set xlabel 'IDENTIFIANT DU TRAJET (route ID)'
+        set ylabel 'DISTANCE (en km)'
         set yrange [0:1000]
         set xtics rotate by 45 right
 
@@ -358,10 +358,10 @@ done
 #--------------------------------------------------------------------------------------------------------------#
 
 if (( "$option_oblig" < 2 )); then
-   echo "pas assez d'arguments dans la ligne de commande"
+   echo "Pas assez d'arguments dans la ligne de commande."
     exit 1
 fi
 
-echo "Analyse des options terminées"
+echo "Analyse des options terminée."
 
 exit 0
