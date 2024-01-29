@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BUFFER_SIZE 4096  // Augmenté la taille du tampon
+#define BUFFER_SIZE 4096  // Augmenter la taille du tampon
 
 struct Statistique {
     int id;
@@ -17,13 +17,13 @@ struct Statistique {
 int main() {
     FILE *input = fopen("temp/s_intermediaire_calcul.csv", "r");
     if (input == NULL) { 
-        fprintf(stderr, "Impossible d'ouvrir le fichier d'entrée s_intermediaire_calcul.csv\n");
+        fprintf(stderr, "Impossible d'ouvrir le fichier d'entrée s_intermediaire_calcul.csv.\n");
         return 1;
     }
-
+    
     FILE *output = fopen("temp/s_filtre.csv", "w+");
     if (output == NULL) {
-        fprintf(stderr, "Impossible d'ouvrir le fichier de sortie s_filtre.csv\n");
+        fprintf(stderr, "Impossible d'ouvrir le fichier de sortie s_filtre.csv.\n");
         fclose(input);
         return 1;
     }
@@ -58,7 +58,8 @@ int main() {
                 stats[id].max = value;
                 stats[id].somme = value;
                 stats[id].count = 1;
-            } else {
+            } 
+            else {
                 // Mettre à jour les statistiques
                 if (value < stats[id].min) {
                     stats[id].min = value;
@@ -83,13 +84,11 @@ int main() {
     // Libérer la mémoire allouée dynamiquement
     free(stats);
 
-
-
     fclose(input);
     fclose(output);
 
     if (remove("temp/s_intermediaire_calcul.csv") != 0) {
-        printf("Erreur lors de la suppression du fichier %s\n", "temp/s_intermediaire_calcul.csv");
+        printf("Erreur lors de la suppression du fichier %s.\n", "temp/s_intermediaire_calcul.csv");
         return 1;
     }
     printf("\nLe fichier %s a été supprimé avec succès.\n", "temp/s_intermediaire_calcul.csv");
