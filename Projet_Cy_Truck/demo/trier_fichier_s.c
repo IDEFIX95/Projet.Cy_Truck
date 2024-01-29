@@ -15,7 +15,7 @@ typedef struct AVL {
     int h;
 } Arbre, *pArbre;
 
-int max(int a, int b) {         //Retourne le maximum entre deux entiers
+int max(int a, int b) {         // Retourne le maximum entre deux entiers
   if (a > b) {
     return a;
   } 
@@ -24,7 +24,7 @@ int max(int a, int b) {         //Retourne le maximum entre deux entiers
   }
 }
 
-int min(int a, int b) {         //Retourne le minimum entre deux entiers
+int min(int a, int b) {         // Retourne le minimum entre deux entiers
   if (a < b) {
     return a;
   } 
@@ -35,8 +35,8 @@ int min(int a, int b) {         //Retourne le minimum entre deux entiers
 
 
 pArbre rotationGauche(pArbre a) {
-    //printf("Rotation Gauche:\n");
-    //printf("Nœud avant rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
+    // printf("Rotation Gauche:\n");
+    // printf("Nœud avant rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
 
     pArbre pivot = a->fd;
     a->fd = pivot->fg;
@@ -48,7 +48,7 @@ pArbre rotationGauche(pArbre a) {
     pivot->h = min(eq_a - 2, min(eq_a + eq_p - 2, eq_p - 1));
     a = pivot;
 
-    //printf("Nœud après rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
+    // printf("Nœud après rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
     
     return a;
 }
@@ -56,8 +56,8 @@ pArbre rotationGauche(pArbre a) {
 
 
 pArbre rotationDroite(pArbre a) {
-    //printf("Rotation Droite:\n");
-    //printf("Nœud avant rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
+    // printf("Rotation Droite:\n");
+    // printf("Nœud avant rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
 
     pArbre pivot = a->fg;
     a->fg = pivot->fd;
@@ -68,7 +68,7 @@ pArbre rotationDroite(pArbre a) {
     pivot->h = max(eq_a + 2, max(eq_a + eq_p + 2, eq_p + 1));
     a = pivot;
 
-    //printf("Nœud après rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
+    // printf("Nœud après rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
 
     return a;
 }
@@ -76,13 +76,13 @@ pArbre rotationDroite(pArbre a) {
 
 
 pArbre doubleRotationGauche(pArbre a) {
-    //printf("Double Rotation Gauche:\n");
-    //printf("Nœud avant double rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
+    // printf("Double Rotation Gauche:\n");
+    // printf("Nœud avant double rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
 
     a->fd = rotationDroite(a->fd); // Rotation droite du fils droit de a
     a = rotationGauche(a); // Rotation gauche de a
 
-    //printf("Nœud après double rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
+    // printf("Nœud après double rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
 
     return a;
 }
@@ -90,13 +90,13 @@ pArbre doubleRotationGauche(pArbre a) {
 
 
 pArbre doubleRotationDroite(pArbre a) {
-    //printf("Double Rotation Droite:\n");
-    //printf("Nœud avant double rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
+    // printf("Double Rotation Droite:\n");
+    // printf("Nœud avant double rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
 
     a->fg = rotationGauche(a->fg); // Rotation gauche du fils gauche de a
     a = rotationDroite(a); // Rotation droite de a
 
-    //printf("Nœud après double rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
+    // printf("Nœud après double rotation : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
 
     return a;
 }
@@ -107,20 +107,20 @@ pArbre equilibrerAVL(pArbre a) {
     //printf("Nœud avant équilibrage : (id: %d, diff: %f, h: %d)\n", a->id, a->diff, a->h);
 
     if (a->h >= 2) {
-        //Sous-arbre droit plus profond
+        // Sous-arbre droit plus profond
         if (a->fd->h >= 0) {
-            //printf("Rotation Gauche choisie.\n");
+            // printf("Rotation Gauche choisie.\n");
             return rotationGauche(a);
         } 
         else {
-            //printf("Double Rotation Gauche choisie.\n");
+            // printf("Double Rotation Gauche choisie.\n");
             return doubleRotationGauche(a);
         }
     } 
     else if (a->h <= -2) {
-        //Sous-arbre gauche plus profond
+        // Sous-arbre gauche plus profond
         if (a->fg->h <= 0) {
-            //printf("Rotation Droite choisie.\n");
+            // printf("Rotation Droite choisie.\n");
             return rotationDroite(a);
         }
         else {
@@ -129,7 +129,7 @@ pArbre equilibrerAVL(pArbre a) {
         }
     }
 
-    //printf("Pas de rotation nécessaire.\n");
+    // printf("Pas de rotation nécessaire.\n");
 
     return a;
 }
@@ -147,7 +147,7 @@ pArbre creerNoeud(int id, float diff, float max, float min, float moy) {
         new->h = 0; 
         new->fg = NULL;
         new->fd = NULL;
-        //printf("Nouveau nœud créé : (id: %d, diff: %f, h: %d)\n", new->id, new->diff, new->h);
+        // printf("Nouveau nœud créé : (id: %d, diff: %f, h: %d)\n", new->id, new->diff, new->h);
     } 
     else {
         printf("Erreur d'allocation dynamique pour le nouveau nœud.\n");
@@ -162,16 +162,16 @@ pArbre insertionAVL(pArbre x, int id, float diff, float max, float min, float mo
         return creerNoeud(id, diff, max, min, moy);
     } 
     else if (diff < x->diff) {
-        //printf("Insertion dans le sous-arbre gauche.\n");
+        // printf("Insertion dans le sous-arbre gauche.\n");
         x->fg = insertionAVL(x->fg, id, diff, max, min, moy, h);
         *h = -*h;
     } 
     else if (diff > x->diff) {
-        //printf("Insertion dans le sous-arbre droit.\n");
+        // printf("Insertion dans le sous-arbre droit.\n");
         x->fd = insertionAVL(x->fd, id, diff, max, min, moy, h);
     } 
     else if (diff == 0) {
-        //printf("Le nœud avec la même différence existe déjà.\n");
+        // printf("Le nœud avec la même différence existe déjà.\n");
         return x;
     }
     
@@ -185,7 +185,7 @@ pArbre insertionAVL(pArbre x, int id, float diff, float max, float min, float mo
         else {
             *h = 1;
         }
-        //printf("Équilibrage effectué. Nouvelle hauteur : %d\n", x->h);
+        // printf("Équilibrage effectué. Nouvelle hauteur : %d\n", x->h);
     }
 
     return x;
@@ -220,18 +220,18 @@ void extrairecol5(pArbre *a, FILE *fichier) {
                     maxi = atof(token2);
                 } 
                 else if (colonne == 5) {
-                    //Limiter la précision à 3 chiffres après la virgule
+                    // Limiter la précision à 3 chiffres après la virgule
                     float diff;
                     sscanf(token2, "%f", &diff);
                     char diffStr[TAILLE_BUFFER];
                     snprintf(diffStr, sizeof(diffStr), "%.3f", diff);
                     diff = atof(diffStr);
 
-                    //printf("Diff : %f\n", diff);
-                    //printf("Ligne : %d\n", i);
+                    // printf("Diff : %f\n", diff);
+                    // printf("Ligne : %d\n", i);
                     *a = insertionAVL(*a, id, diff, maxi, mini, moy, &h);
                     i++;
-                    //printf("------------------------------------------------\n");
+                    // printf("------------------------------------------------\n");
                 }
 
                 token2 = strtok(NULL, ";");
@@ -277,7 +277,7 @@ int main(){
     fichier2 = fopen("fichier_traite_opt-s.csv", "w");
     if (fichier2 == NULL) {
         perror("Erreur lors de l'ouverture du fichier en écriture");
-        fclose(fichier1); //Fermer le fichier déjà ouvert
+        fclose(fichier1); // Fermer le fichier déjà ouvert
         return 1;
     }
 
