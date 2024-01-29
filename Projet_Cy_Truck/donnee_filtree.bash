@@ -46,22 +46,29 @@ done
 
 #--------------------------------------------------------------------------------------------------------------#
 
-if [ ! -d "$dossier_data" ];then
-    mkdir data
-fi
-
-if [ -f "$dossier_data/*.csv" ];then
-    echo "Le fichier existe dans le dossier."
-else
-    echo "Le fichier n'existe pas dans le dossier."
-fi
-
-if [ "$1" == "$fichier_d_entrer" ]; then     # Regarde si le premier argument de la ligne de commande est bien le chemin vers le fichier de données d'entrée.
-    echo "Le chemin vers le fichier $fichier_d_entrer est bien le premier argument de la ligne de commande."
-else
-    echo "Le chemin vers le fichier $fichier_d_entrer n'est pas mis comme premier argument."
+if [ "$#" -lt 1 ];then
+    echo "Erreur : Le chemin vers le dossier data est obligatoire en tant que 1er argument."
     exit 1
 fi
+
+# Verifier si au moins un fichier .csv existe dans le dossier "data"
+fichier_csv=$(find "$fichier_d_entrer" -maxdepth 1 -type f -name "*.csv")
+
+# Vérifie si au moins un fichier .csv existe dans le dossier "data"
+if [ -z "$fichier_csv" ];then
+    echo "Erreur : Aucun fichier CSV n'a été trouvé dans le dossier $fichier_d_entrer."
+    exit 1
+fi
+
+# Vérifie si le chemin commence par "data/" et se termine par ".csv"
+if [[ "$fichier_d_entrer" =~ ^data/.*\.csv$ ]];then
+    echo "Le chemin $fichier_d_entrer correspond à un au chemin vers le fichier CSV dans le dossier data."
+else 
+    echo "Erreur : Le chemin $fichier_d_entrer ne correspond pas à un fichier dit data CSV dans le dossier data."
+    exit 1
+fi
+
+echo "Toutes les vérifications sont réussies. Au moins un fichier CSV a été trouvé dans le dossier $fichier_d_entrer"
 
 #--------------------------------------------------------------------------------------------------------------#
 
@@ -119,7 +126,7 @@ for i in "$@" ;do                             # La condition qui permet de lance
         # Enregistrer le temps de début.
         debut_timer_d1=$(date +%s)
         
-        awk -F";" '/;1;/ {compteur[$6] += 1} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr | head -10 > demo/d1_final.csv
+        awk -F";" '/;1;/ {compteur[$6] += 1} END {for (nom in compteur) print nom ";" compteur[nom]}' "$fichier_d_entrer" |sort -t";" -k2nr | head -10 > demo/d1_final.csv
         
         fin_timer_d1=$(date +%s)
 
@@ -168,7 +175,7 @@ EOF
     if [ "$i" == "-d2" ];then
         # Enregistrer le temps de début.
         debut_timer_d2=$(date +%s)
-        awk -F";" '{compteur[$6] += $5} END {for (nom in compteur) print nom ";" compteur[nom]}' data/data.csv |sort -t";" -k2nr | head -10 > demo/d2_final.csv
+        awk -F";" '{compteur[$6] += $5} END {for (nom in compteur) print nom ";" compteur[nom]}' "$fichier_d_entrer" |sort -t";" -k2nr | head -10 > demo/d2_final.csv
         fin_timer_d2=$(date +%s)
 
         # Calculer la durée totale (en secondes).
@@ -216,7 +223,7 @@ EOF
     if [ "$i" == "-l" ];then
         # Enregistrer le temps de début.
         debut_timer_l=$(date +%s)
-        awk -F";"  '{compteur[$1] += $5} END {for (id_trajet in compteur) print id_trajet ";" compteur[id_trajet]}' data/data.csv |sort -t";" -k2nr | head -10 | sort -t";" -k1n > demo/l_final.csv
+        awk -F";"  '{compteur[$1] += $5} END {for (id_trajet in compteur) print id_trajet ";" compteur[id_trajet]}' "$fichier_d_entrer" |sort -t";" -k2nr | head -10 | sort -t";" -k1n > demo/l_final.csv
         fin_timer_l=$(date +%s)
 
         # Calculer la durée totale (en secondes).
@@ -306,7 +313,7 @@ EOF
     if [ "$i" == "-s" ];then
         # Enregistrer le temps de début.
         debut_timer_s=$(date +%s)
-        awk -F";" ' FNR > 1 {print $1 ";" $5}' data/data.csv > temp/s_intermediaire_calcul.csv
+        awk -F";" ' FNR > 1 {print $1 ";" $5}' "$fichier_d_entrer" > temp/s_intermediaire_calcul.csv
         touch temp/s_filtre.csv
         ./progc/filtre_s
         touch demo/fichier_traite_opt_s.csv
