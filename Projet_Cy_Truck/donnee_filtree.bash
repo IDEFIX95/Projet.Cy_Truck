@@ -261,19 +261,12 @@ EOF
     if [ "$i" == $option_t ];then
         # Enregistrer le temps de début.
         debut_timer_t=$(date +%s)
-        touch temp/fichier_col4.csv
-        touch temp/fichier_col2_3.csv
-        touch temp/additionville.csv
-        touch temp/addition_ville_villedepart.csv
-        touch temp/total_trajets_decroissant.csv
-        touch temp/total_trajet_decroissant_villededepart.csv
-        touch temp/fichierfusionnertrajets.csv
-        touch demo/fichier_final.csv
         ./progc/etape1_filtre_t "$fichier_d_entrer"
-        ./progc/etape2_IsoCol2_3
+        ./progc/etape2_IsoCol2_3 "$fichier_d_entrer"
         ./progc/etape3_comptage
         ./progc/etape4_triersomme
         ./progc/etape5_traitement_final
+        ./progc/etape6_parcours_decroissant_alphabetique
         fin_timer_t=$(date +%s)
 
         # Calculer la durée totale (en secondes).
@@ -314,9 +307,7 @@ EOF
         # Enregistrer le temps de début.
         debut_timer_s=$(date +%s)
         awk -F";" ' FNR > 1 {print $1 ";" $5}' "$fichier_d_entrer" > temp/s_intermediaire_calcul.csv
-        touch temp/s_filtre.csv
         ./progc/filtre_s
-        touch demo/fichier_traite_opt_s.csv
         ./progc/trier_fichier_s
         fin_timer_s=$(date +%s)
         # Calculer la durée totale (en secondes).
