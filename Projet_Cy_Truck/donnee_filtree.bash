@@ -345,6 +345,11 @@ EOF
         option_oblig=$(("$option_oblig"+1))
     fi
 
+    if [ "$i" == "-supps_fichiers_temp" ];then
+        rm -f temp/*.csv
+        option_oblig=$(("$option_oblig"+1))
+    fi
+
     if [ "$i" == "-fichier_reference" ];then
         sort -t";" -n -k1 data/data.csv > demo/ref.csv
         awk -F";" '{print $1 ";" $3 ";" $4}' demo/ref.csv > demo/reference_offi.csv
