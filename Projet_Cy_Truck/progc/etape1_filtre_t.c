@@ -9,7 +9,7 @@
 #include <string.h>
 
 #define TAILLE_BUFFER 1024
-#define FICHIER_SORTIE "data/data.csv"
+#define FICHIER_ENTREE "data/data1.csv"
 #define FICHIER_SORTIE "temp/fichier_col4.csv"
 
 void copierdonnee(FILE *fichierEntree, FILE *fichierSortie) {
@@ -21,17 +21,31 @@ void copierdonnee(FILE *fichierEntree, FILE *fichierSortie) {
             isFirstLine = 0;  
             continue;  
         }
-        char *token = strtok(buffer, ";");
-        int colonne = 1;
 
-        while (token != NULL) {
-            if (colonne == 4) {
-                fprintf(fichierSortie, "%s", token);
+        char *token = strtok(buffer, "\n");
+
+        while (token != NULL){
+            char *token2 = strtok(token,";");
+            int colonne = 1;
+            char tempcol3[TAILLE_BUFFER];
+            char tempcol4[TAILLE_BUFFER];
+            while (token2 != NULL){
+                if (colonne == 3){
+                    strcpy(tempcol3,token2);
+                } else if (colonne == 4){
+                    strcpy(tempcol4,token2);
+                    if (strcmp(tempcol4,tempcol3) != 0){
+                        fprintf(fichierSortie, "%s", token2);
+                    }
+                }
+                token2 = strtok(NULL, ";");
+                colonne++;
             }
-            token = strtok(NULL, ";");
-            colonne++;
+            fprintf(fichierSortie, "\n");
+            token = strtok(NULL, "\n");
         }
-        fprintf(fichierSortie, "\n");
+
+
     }
 }
 
@@ -39,10 +53,13 @@ void copierdonnee(FILE *fichierEntree, FILE *fichierSortie) {
 int main(int argc, char* argv[]) {
     FILE *fichier1, *fichier2;
 
+    if(argc==1){
+        printf("Il y a le bon nombre d'argument de la ligne de commande est correct donc le chemin vers le fichier data '%s' est present.", argv[1]);
+    }
     // Ouvrir le fichier d'entrée en mode lecture
     fichier1 = fopen(argv[1], "r");
     if (fichier1 == NULL) {
-        fprintf(stderr, "Erreur lors de l'ouverture du fichier d'entrée '%s'\n", FICHIER_ENTREE);
+        fprintf(stderr, "Erreur lors de l'ouverture du fichier d'entrée '%s'\n", argv[1]);
         return 1;
     }
 
@@ -53,7 +70,7 @@ int main(int argc, char* argv[]) {
         fclose(fichier1);
         return 1;
     }
-
+    printf("abc.\n");
 
     copierdonnee(fichier1, fichier2);
     
