@@ -210,7 +210,7 @@ int main() {
     fclose(fichier1);
     qsort(donnees, nombreDeLignes, sizeof(lignes), compareCol2);
 
-    fichier4 = fopen("demo/fichier_final.csv", "w");  
+    fichier4 = fopen("temp/fichier_avant_parcours.csv", "w");  
     if (fichier4 == NULL) {
         fprintf(stderr, "Erreur lors de l'ouverture du fichier fichier4.\n");
         return 1;
