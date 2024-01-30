@@ -26,15 +26,19 @@ EXEC_etape5_traitement_final = etape5_traitement_final
 SRC_etape5_traitement_final = etape5_traitement_final.c
 OBJ_etape5_traitement_final = $(SRC_etape5_traitement_final:.c=.o)
 
+EXEC_etape6_parcours_decroissant_alphabetique = etape6_parcours_decroissant_alphabetique
+SRC_etape6_parcours_decroissant_alphabetique = etape6_parcours_decroissant_alphabetique.c
+OBJ_etape6_parcours_decroissant_alphabetique = $(SRC_etape6_parcours_decroissant_alphabetique:.c=.o)
+
 CC = gcc
 CFLAGS = -g -Wall -Wextra -Werror
 
-PROGRAMS = $(EXEC_filtre_s) $(EXEC_trier_fichier_s) $(EXEC_etape1_filtre_t) $(EXEC_etape2_IsoCol2_3) $(EXEC_etape3_comptage) $(EXEC_etape4_triersomme) $(EXEC_etape5_traitement_final)
+PROGRAMS = $(EXEC_filtre_s) $(EXEC_trier_fichier_s) $(EXEC_etape1_filtre_t) $(EXEC_etape2_IsoCol2_3) $(EXEC_etape3_comptage) $(EXEC_etape4_triersomme) $(EXEC_etape5_traitement_final) $(EXEC_etape6_parcours_decroissant_alphabetique)
 
 all: check_sources $(PROGRAMS)
 
 check_sources:
-	@for file in $(SRC_filtre_s) $(SRC_trier_fichier_s) $(SRC_etape1_filtre_t) $(SRC_etape2_IsoCol2_3) $(SRC_etape3_comptage) $(SRC_etape4_triersomme) $(SRC_etape5_traitement_final); do \
+	@for file in $(SRC_filtre_s) $(SRC_trier_fichier_s) $(SRC_etape1_filtre_t) $(SRC_etape2_IsoCol2_3) $(SRC_etape3_comptage) $(SRC_etape4_triersomme) $(SRC_etape5_traitement_final) $(SRC_etape6_parcours_decroissant_alphabetique); do \
 		if [ ! -e $$file ]; then \
 			echo "Erreur: Le fichier $$file n'existe pas."; \
 			exit 1; \
@@ -63,6 +67,9 @@ $(EXEC_etape4_triersomme): $(OBJ_etape4_triersomme)
 $(EXEC_etape5_traitement_final): $(OBJ_etape5_traitement_final)
 	$(CC) -o $(EXEC_etape5_traitement_final) $(OBJ_etape5_traitement_final)
 
+$(EXEC_etape6_parcours_decroissant_alphabetique): $(OBJ_etape6_parcours_decroissant_alphabetique)
+	$(CC) -o $(EXEC_etape6_parcours_decroissant_alphabetique) $(OBJ_etape6_parcours_decroissant_alphabetique)
+
 %.o: %.c
 	$(CC) $(CFLAGS) -c $<
 
@@ -75,5 +82,6 @@ clean:
 	rm -f progc/$(OBJ_etape3_comptage) progc/$(EXEC_etape3_comptage)
 	rm -f progc/$(OBJ_etape4_triersomme) progc/$(EXEC_etape4_triersomme)
 	rm -f progc/$(OBJ_etape5_traitement_final) progc/$(EXEC_etape5_traitement_final)
+	rm -f progc/$(OBJ_etape6_parcours_decroissant_alphabetique) progc/$(EXEC_etape6_parcours_decroissant_alphabetique)
 
 .PHONY: all clean check_sources
