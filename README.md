@@ -20,6 +20,6 @@ Concenant le Makefile, si vous voulez supprimer tous les fichiers exécutables e
 
 
 Utilisation :
-Il suffit de donner au script un fichier csv et les options demandé et il sortira un graphique corresdpondant au options.
+Il suffit de donner au script un fichier csv et les options demandées et il sortira un graphique corresdpondant au options.
 
 Yacine KHELIL, Duc Duy HUYNH et Clément Rimbeuf.
