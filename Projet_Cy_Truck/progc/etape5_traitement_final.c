@@ -221,7 +221,7 @@ int main() {
 
     // Libération de la mémoire
     free(donnees);
-    printf("Traitement terminé avec succès.\n");
+    printf("Traitement de l'étape 5 terminé avec succès.\n");
 
     libererABR(a);
     return 0;
