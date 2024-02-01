@@ -9,20 +9,18 @@ Prérequis :
 
 Installation :
 
-  Pour installer ce projet, vous pouvez télécharger le code source à partir du dépôt GitHub. Une fois téléchargé, vous pouvez exécuter les scripts shell en utilisant la commande ./donnee_filtree.bash 
+   Pour installer ce projet, vous pouvez télécharger le code source à partir du dépôt GitHub. Une fois téléchargé, vous pouvez exécuter les scripts shell en utilisant la commande ./donnee_filtree.bash 
 
 Pour lancer la commande avec help, veuillez taper la ligne de commande suivante :
 
-      ./donnee_filtree.bash data/data.csv -h
-
+   ./donnee_filtree.bash data/data.csv -h
 
 Concenant le Makefile, si vous voulez supprimer tous les fichiers exécutables et .o il faut alors taper la ligne de commande suivante : 
       
-      make -f progc/Makefile clean
-
+   make -f progc/Makefile clean
 
 Utilisation :
 
-  Il suffit de donner au script un fichier csv et les options demandées et il sortira un graphique corresdpondant au options.
+  Il suffit de donner au script un fichier .csv et les options demandées et il sortira un graphique correspondant aux options.
 
-Yacine KHELIL, Duc Duy HUYNH et Clément Rimbeuf.
+Yacine KHELIL, Duc Duy HUYNH et Clément RIMBEUF.
