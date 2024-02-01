@@ -366,6 +366,13 @@ if (( "$option_oblig" < 2 )); then
     exit 1
 fi
 
+# Fonction pour pouvoir supprimer les fichiers temporaire ce situant le dossier temp
+rm -f temp/*.csv
+
+# Make clean pour pouvoir supprimer a la fin automatiquement les fichiers executables et objets.
+
+make -f progc/Makefile clean > /dev/null 2>&1
+
 echo "Analyse des options terminée."
 
 exit 0
