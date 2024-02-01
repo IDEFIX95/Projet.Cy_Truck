@@ -288,7 +288,7 @@ EOF
         set title 'HISTOGRAMME DE TRAITEMENT -t'
         set xlabel 'NOM DES VILLES'
         set ylabel 'NOMBRE DE TRAJETS'
-        set yrange [0:6000]
+        set yrange [0:4000]
         set style data histogram
         set style histogram cluster gap 1
         set style fill solid border -1
