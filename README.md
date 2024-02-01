@@ -23,4 +23,4 @@ Utilisation :
 
   Il suffit de donner au script un fichier .csv et les options demandées et il sortira un graphique correspondant aux options.
 
-Yacine KHELIL, Duc Duy HUYNH et Clément RIMBEUF.
+Yacine KHELIL, Duc Duy HUYNH et Clément RIMBEUF
