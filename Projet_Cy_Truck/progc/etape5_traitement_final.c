@@ -1,5 +1,6 @@
 // ÉTAPE 5
 
+// Cette étape permet de fusionner les résultats (additionner) et écrire dans un fichier les 10 premières villes qui parcourent le plus de distance.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,7 +9,7 @@
 
 #define TAILLE_BUFFER 2048
 
-
+// Structure pour stocker une ligne de données
 typedef struct ABR {
     char ville[TAILLE_BUFFER];
     int somme;
@@ -17,17 +18,19 @@ typedef struct ABR {
     struct ABR *fg;
 } ABR, *pABR;
 
+//Structure pour l'arbre binaire de recherche (ABR)
 typedef struct lignes{
     char col1[TAILLE_BUFFER];
     int col2;
     int col3;
 } lignes;
 
-
+//Fonction de comparaison pour qsort (tri par la deuxième colonne)
 int compareCol2(const void *a, const void *b) {
     return ((lignes *)b)->col2 - ((lignes *)a)->col2;
 }
 
+// Fonction pour créer un nouveau nœud de l'ABR
 pABR creerchainon(char *c, int e) {
     ABR *new = malloc(sizeof(*new));
     if (new == NULL) {
@@ -42,29 +45,20 @@ pABR creerchainon(char *c, int e) {
     return new;
 }
 
-
+// Fonction pour l'insertion dans l'ABR
 pABR insertionABR(pABR a, char *c, int e) {
     if (a == NULL) {
-        // printf("a est null\n");
         a = creerchainon(c, e);
-        // printf("Nouveau nœud créé : %s, %d\n", c, e);  
-        // Message de débogage
     } 
     else {
         int comparaisonVille = strcmp(c, a->ville);
         if (comparaisonVille < 0) {
-            // printf("Descendre dans le sous-arbre gauche\n");  
-            // Message de débogage
             a->fg = insertionABR(a->fg, c, e);
         } 
         else if (comparaisonVille > 0) {
-            // printf("Descendre dans le sous-arbre droit\n");  
-            // Message de débogage
             a->fd = insertionABR(a->fd, c, e);
         } 
         else {
-            // printf("Ville déjà présente, mettre à jour les valeurs\n");  
-            // Message de débogage
             a->somme = e + a->somme;
             a->temp = e;
         }
@@ -72,20 +66,17 @@ pABR insertionABR(pABR a, char *c, int e) {
     return a;
 }
 
+// Parcours décroissant de l'ABR et écriture dans un fichier
 
 void parcoursdecroissant(pABR a, FILE *fichier) {
     if (a != NULL) {
         parcoursdecroissant(a->fd, fichier);
-        // printf("Ville : %s, Somme : %d, Temp : %d\n", a->ville, a->somme, a->temp);
         fprintf(fichier, "%s;%d;%d\n", a->ville, a->somme, a->temp);
         parcoursdecroissant(a->fg, fichier);
-    } 
-    else {
-        // printf("arbre null.\n");
     }
 }
 
-
+// Traitement du fichier CSV et construction de l'ABR
 void traiterfichier(pABR *a, FILE *fichier) {
     char buffer[TAILLE_BUFFER];
     char elm[TAILLE_BUFFER];
@@ -102,13 +93,10 @@ void traiterfichier(pABR *a, FILE *fichier) {
                 if (colonne == 1) {
                     strncpy(elm, token2, sizeof(elm) - 1);
                     elm[sizeof(elm) - 1] = '\0';
-                    // printf("Ville : %s\n", elm);  
-                    // Message de débogage
                     colonne++;
                 } 
                 else if (colonne == 2) {
                     e = atoi(token2);
-                    // printf("e : %d\n", e);  // Message de débogage
                     *a = insertionABR(*a, elm, e);
                     colonne = 1;  
                     // Réinitialiser pour la prochaine itération
@@ -122,7 +110,7 @@ void traiterfichier(pABR *a, FILE *fichier) {
     }
 }
 
-
+// Libération de la mémoire utilisée par l'ABR
 void libererABR(pABR a) {
     if (a != NULL) {
         libererABR(a->fg);
@@ -133,6 +121,7 @@ void libererABR(pABR a) {
 
 
 int main() {
+    // Ouverture des fichiers
     FILE *fichier1, *fichier2, *fichier3, *fichier4;
     pABR a = NULL;
 
@@ -154,11 +143,13 @@ int main() {
         return 1;
     }
 
+    // Traitement des fichiers et construction de l'ABR
     traiterfichier(&a,fichier3);
     printf("Passage au traitement du fichier suivant.\n");
     traiterfichier(&a,fichier2);
     parcoursdecroissant(a,fichier1);
 
+    // Fermeture des fichiers
     if (fclose(fichier2) != 0) {
         fprintf(stderr, "Erreur lors de la fermeture du fichier fichier2.\n");
     }
@@ -228,6 +219,7 @@ int main() {
         fprintf(stderr, "Erreur lors de la fermeture du fichier fichier4.\n");
     }
 
+    // Libération de la mémoire
     free(donnees);
     printf("Traitement terminé avec succès.\n");
 
