@@ -18,14 +18,14 @@ typedef struct ABR {
     struct ABR *fg;
 } ABR, *pABR;
 
-//Structure pour l'arbre binaire de recherche (ABR)
+// Structure pour l'arbre binaire de recherche (ABR)
 typedef struct lignes{
     char col1[TAILLE_BUFFER];
     int col2;
     int col3;
 } lignes;
 
-//Fonction de comparaison pour qsort (tri par la deuxième colonne)
+// Fonction de comparaison pour qsort (tri par la deuxième colonne)
 int compareCol2(const void *a, const void *b) {
     return ((lignes *)b)->col2 - ((lignes *)a)->col2;
 }
