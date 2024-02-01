@@ -10,6 +10,7 @@
 #define FICHIER_ENTREE "data/data.csv"
 #define FICHIER_SORTIE "temp/fichier_col2_3.csv"
 
+// Fonction pour extraire la colonne 2 (step ID) et colonne 3 (ville de départ) dans le fichier fichier_col2_3.csv
 void copierdonnee(FILE *fichierEntree, FILE *fichierSortie) {
     char buffer[TAILLE_BUFFER];
 
@@ -64,7 +65,7 @@ int main() {
     }
 
 
-    printf("Traitement terminé avec succès.\n");
+    printf("Traitement de l'étape 2 terminé avec succès.\n");
 
     return 0;
 }
