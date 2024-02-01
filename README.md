@@ -13,11 +13,11 @@ Installation :
 
 Pour lancer la commande avec help, veuillez taper la ligne de commande suivante :
 
-   ./donnee_filtree.bash data/data.csv -h
+      ./donnee_filtree.bash data/data.csv -h
 
 Concenant le Makefile, si vous voulez supprimer tous les fichiers exécutables et .o il faut alors taper la ligne de commande suivante : 
       
-   make -f progc/Makefile clean
+      make -f progc/Makefile clean
 
 Utilisation :
 
