@@ -146,16 +146,14 @@ for i in "$@" ;do                             # La condition qui permet de lance
         set output 'images/histogramme_d1.png'
 
         # Paramètres du graphique
-        set bmargin 13   # Ajuster la marge inférieure (en unités par défaut)
-        set rmargin 5
-        set lmargin 2
-        set title 'HISTOGRAMME DE TRAITEMENT -d1'
+        set size 0.95,1
+        set label rotate by 90 "HISTOGRAMME DE TRAITEMENT -d1" at screen 0.015, 0.5 center offset 0.3
         set xlabel 'CONDUCTEURS'
         set ylabel 'NB ROUTES'
         set xtic rotate by 90 offset 0,-9
         set xlabel rotate by 180 offset 0,-9
-        set ylabel offset 116,0
-        set ytic offset 108,0.60
+        set ylabel offset 108,0
+        set ytic offset 98,0.60
         set yrange [0:250]
         set ytic rotate by 90
         set style histogram rowstacked
@@ -194,16 +192,14 @@ EOF
         set output 'images/histogramme_d2.png'
 
         # Paramètres du graphique
-        set bmargin 13
-        set rmargin 5
-        set lmargin 2
-        set title 'HISTOGRAMME DE TRAITEMENT -d2'
+        set size 0.95,1
+        set label rotate by 90 "HISTOGRAMME DE TRAITEMENT -d2" at screen 0.015, 0.5 center offset 0.3
         set xlabel 'CONDUCTEURS'
         set ylabel 'DISTANCE TOTALE (en km)'
         set xtic rotate by 90 offset 0,-9
         set xlabel rotate by 180 offset 0,-9
-        set ylabel offset 116,0
-        set ytic offset 108,1
+        set ylabel offset 108,0
+        set ytic offset 98,0.60
         set yrange [0:200000]
         set ytic rotate by 90
         set ytics 0, 40000, 200000
