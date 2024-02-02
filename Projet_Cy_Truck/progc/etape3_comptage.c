@@ -10,15 +10,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TAILLE_BUFFER 1024
+#include "etape3_comptage.h"
 
-// Utilisation d'un ABR pour additionner le nombre de villes
-typedef struct ABR {
-    char ville[TAILLE_BUFFER];
-    int somme;
-    struct ABR *fd;
-    struct ABR *fg;
-} ABR, *pABR;
+#define TAILLE_BUFFER 1024
 
 // Fonction pour créer un nouveau maillon de l'arbre
 pABR creerchainon(char *c) {
