@@ -1,5 +1,6 @@
-// CE PROGRAMME PERMET D'EXTRAIRE DES COLONNES 2 ET 3 DU FICHIER "DATA.CSV" VERS UN AUTRE FICHIER AFIN DE TRAIVAILLER SUR LE NOMBRE DE TRAJETS DES VILLES DE DÉPART.
 // ÉTAPE 2
+
+// Ce programme permet d'extraire les colonnes 2 et 3 du fichier "data.csv" vers un autre fichier afin de travailler sur le nombre de trajets des villes de départ.
 
 
 #include <stdio.h>
