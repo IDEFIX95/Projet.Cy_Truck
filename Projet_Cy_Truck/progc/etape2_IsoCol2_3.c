@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "etape2_IsoCol2_3.h"
 
 #define TAILLE_BUFFER 1024
 #define FICHIER_ENTREE "data/data.csv"
