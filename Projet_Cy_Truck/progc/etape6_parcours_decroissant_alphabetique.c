@@ -7,12 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Structure pour stocker les enregistrements du fichier CSV
-struct Record {
-    char nom[100];
-    int col1;
-    int col2;
-};
+#include "etape6_parcours_decroissant_alphabetique.h"
 
 // Fonction de comparaison pour qsort, triant les enregistrements par ordre alphabétique du champ 'nom'
 int compare(const void *a, const void *b) {
