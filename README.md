@@ -10,8 +10,12 @@ Prérequis :
    
 Installation :
 
-   Pour installer ce projet, vous pouvez télécharger le code source à partir du dépôt GitHub. Une fois téléchargé, vous pouvez exécuter les scripts shell en utilisant la commande ./donnee_filtree.bash 
+   Pour installer ce projet, vous pouvez télécharger le code source à partir du dépôt GitHub. Une fois téléchargé, vous devez vous attribuer la permission de l'exécution avec :
+   
+        chmod +x donnee_filtree.bash
 
+   Vous pouvez exécuter les scripts shell en utilisant la commande ./donnee_filtree.bash.
+   
    Pour lancer la commande avec help, veuillez taper la ligne de commande suivante :
 
        ./donnee_filtree.bash data/data.csv -h
