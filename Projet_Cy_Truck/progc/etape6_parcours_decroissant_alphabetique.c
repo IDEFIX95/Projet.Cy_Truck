@@ -54,7 +54,9 @@ int main() {
     // Fermeture du fichier de sortie
     fclose(fichier2);
 
+    
     // Affichage d'un message de succès
+    printf("Traitement de l'étape 6 terminé avec succès.\n");
     printf("Le fichier a été trié avec succès. Les résultats sont dans fichier_final.csv se situant dans le dossier demo.\n");
 
     // Fin du programme
