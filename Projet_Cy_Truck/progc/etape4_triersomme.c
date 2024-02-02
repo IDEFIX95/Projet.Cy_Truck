@@ -288,6 +288,8 @@ int main(){
     libererAVL(arbre1);
     libererAVL(arbre2);
 
+    printf("Traitement de l'étape 4 terminé avec succès.\n");
+
     return 0;
 
 }
