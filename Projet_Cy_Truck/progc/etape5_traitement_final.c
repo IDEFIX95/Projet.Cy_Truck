@@ -2,6 +2,7 @@
 
 // Cette étape permet de fusionner les résultats (additionner) et écrire dans un fichier les 10 premières villes qui parcourent le plus de distance.
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
