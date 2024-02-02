@@ -29,7 +29,7 @@ Autres commandes de disponible (en bonus) :
 
       ./donnee_filtree.bash data/data.csv -supps_fichiers_temp
 
-Enfin, on a fait une dernière commande qui permet d'avoir le fichier de référence de toutes les distances en fonction des routes id et qui trient de façon croissant les routes id :
+Enfin, on a fait une dernière commande qui permet d'avoir le fichier de référence de toutes les distances en fonction des routes ID et qui trient de façon croissant les routes ID :
 
       ./donnee_filtree.bash data/dta.csv -fichier_reference
 
