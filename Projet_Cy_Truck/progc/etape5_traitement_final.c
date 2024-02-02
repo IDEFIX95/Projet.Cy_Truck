@@ -145,7 +145,6 @@ int main() {
 
     // Traitement des fichiers et construction de l'ABR
     traiterfichier(&a,fichier3);
-    printf("Passage au traitement du fichier suivant.\n");
     traiterfichier(&a,fichier2);
     parcoursdecroissant(a,fichier1);
 
