@@ -351,7 +351,7 @@ EOF
 
     if [ "$i" == "-fichier_reference" ];then
         sort -t";" -n -k1 "$fichier_d_entrer" > demo/ref.csv
-        awk -F";" '{print $1 ";" $3 ";" $4}' demo/ref.csv > demo/reference_offi.csv
+        awk -F";" '{print $1 ";" $5}' demo/ref.csv > demo/reference_offi.csv
         option_oblig=$(("$option_oblig"+1))
     fi
     
