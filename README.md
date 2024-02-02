@@ -20,6 +20,8 @@ Installation :
 
        ./donnee_filtree.bash data/data.csv -h
 
+   Attention : la vitesse de la première exécution d'une option pourrait être lente car l'ordinateur doit lire la totalité du fichier data.
+   
    Concernant le Makefile, si vous voulez supprimer tous les fichiers exécutables et .o il faut alors taper la ligne de commande suivante. Dans tous les cas, les fichiers executable et .o sont supprimés de façon automatique ; ici c'est de façon manuelle que vous supprimez : 
       
        make -f progc/Makefile clean
