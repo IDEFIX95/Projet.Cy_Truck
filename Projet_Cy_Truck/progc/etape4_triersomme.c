@@ -3,7 +3,6 @@
 // Cette étape permet de calculer le nombre total de trajet des villes à l'aide d'un AVL et trier dans l'ordre décroissant.
 
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
