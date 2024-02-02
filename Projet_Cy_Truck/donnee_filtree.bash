@@ -330,7 +330,7 @@ EOF
 
         # Tracé du graphique
         set datafile separator ';'
-        plot 'demo/fichier_traite_opt_s.csv' using 0:3:5:xticlabel(2) with filledcurves lc rgb 'blue' lt 1 title "Distance Max/Min (en km)", \
+        plot 'demo/fichier_traite_opt_s.csv' using 0:3:5:xticlabel(2) with filledcurves lc rgb 'cyan' lt 1 title "Distance Max/Min (en km)", \
         'demo/fichier_traite_opt_s.csv' using 0:4 with lines linecolor 2 title "Distance moyenne (en km)"
 EOF
         xdg-open images/histogramme_s.png
