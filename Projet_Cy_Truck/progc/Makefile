@@ -83,5 +83,6 @@ clean:
 	rm -f progc/$(OBJ_etape4_triersomme) progc/$(EXEC_etape4_triersomme)
 	rm -f progc/$(OBJ_etape5_traitement_final) progc/$(EXEC_etape5_traitement_final)
 	rm -f progc/$(OBJ_etape6_parcours_decroissant_alphabetique) progc/$(EXEC_etape6_parcours_decroissant_alphabetique)
+	rm -f progc/terminal
 
 .PHONY: all clean check_sources
