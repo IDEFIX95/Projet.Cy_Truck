@@ -6,19 +6,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "trier_fichier_s.h"
+
 #define TAILLE_BUFFER 4096
 
-// Définition de la structure d'un arbre AVL
-typedef struct AVL {
-    int id;
-    float dist_min;
-    float dist_max;
-    float dist_moy;
-    float diff;
-    struct AVL *fg;  // Fil gauche
-    struct AVL *fd;  // Fil droit
-    int h;           // Hauteur
-} Arbre, *pArbre;
 
 // Fonction utilitaire pour obtenir le maximum de deux entiers
 int max(int a, int b) {
