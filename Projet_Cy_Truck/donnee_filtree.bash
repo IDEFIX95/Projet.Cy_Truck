@@ -361,7 +361,7 @@ done
 #--------------------------------------------------------------------------------------------------------------#
 
 if (( "$option_oblig" < 2 )); then
-   echo "Pas assez d'arguments dans la ligne de commande."
+   echo "Pas assez d'arguments dans la ligne de commande ou alors l'option n'existe pas."
     exit 1
 fi
 
