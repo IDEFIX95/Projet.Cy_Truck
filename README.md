@@ -15,20 +15,20 @@ Pour lancer la commande avec help, veuillez taper la ligne de commande suivante 
 
       ./donnee_filtree.bash data/data.csv -h
 
-Concenant le Makefile, si vous voulez supprimer tous les fichiers exécutables et .o il faut alors taper la ligne de commande suivante ( dans tout les cas les fichiers executable et .o sont supprimés de facon automatique ici c'est de facon manuelle que vous supprimés) : 
+Concenant le Makefile, si vous voulez supprimer tous les fichiers exécutables et .o il faut alors taper la ligne de commande suivante. Dans tous les cas, les fichiers executable et .o sont supprimés de façon automatique ; ici c'est de façon manuelle que vous supprimez : 
       
       make -f progc/Makefile clean
 
-Autres commandes de disponible (en bonus):
-   Tel que par exemple pouvoir supprimer tous les fichiers .csv du dossier demo à l'aide de cette commande :
+Autres commandes de disponible (en bonus) :
+Par exemple, vous pouvez supprimer tous les fichiers .csv du dossier demo à l'aide de cette commande :
 
       ./donnee_filtree.bash data/data.csv -supps_fichiers_demo
 
-   Ou encore une commande pour pouvoir supprimer les fichiers temporaire .csv se situant dans le dossier temp ( meme si ces dernieres sont supprimés automatiquement çà la fin du fichier bash) :
+Par ailleurs, vous avez une commande pour pouvoir supprimer les fichiers temporaires .csv se situant dans le dossier temp, même si ces dernières sont supprimées automatiquement à la fin du fichier bash :
 
       ./donnee_filtree.bash data/data.csv -supps_fichiers_temp
 
-   Enfin on a fait une derniere commande qui permet d'avoir le fichier de reference de toutes les distances en fonction des routes Id et qui trie de facon croissant les routesId :
+Enfin, on a fait une dernière commande qui permet d'avoir le fichier de référence de toutes les distances en fonction des routes id et qui trient de façon croissant les routes id :
 
       ./donnee_filtree.bash data/dta.csv -fichier_reference
 
