@@ -1,6 +1,8 @@
 // ETAPE 1 : Le Filtrage
 
-// Cette étape va permettre de filtrer dans un 1er temps
+// Cette étape va permettre de filtrer dans un 1er temps de recuperer les données et de faire le min/moyenne/max/difference entre le max et le min pour chaque route Id
+
+// Par la suite une fois ces données faient le programme les ecrient dans un fichier de sortie nommé s_filtre.csv 
 
 #include <stdio.h>
 #include <stdlib.h>
