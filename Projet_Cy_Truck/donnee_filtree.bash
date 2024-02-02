@@ -353,6 +353,7 @@ EOF
         sort -t";" -n -k1 "$fichier_d_entrer" > demo/ref.csv
         awk -F";" '{print $1 ";" $5}' demo/ref.csv > demo/reference_offi.csv
         option_oblig=$(("$option_oblig"+1))
+        rm -f demo/ref.csv
     fi
     
 done
