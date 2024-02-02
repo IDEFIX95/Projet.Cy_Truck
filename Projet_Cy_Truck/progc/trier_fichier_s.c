@@ -1,3 +1,7 @@
+// Etape 2 : trie final
+
+// On va trié le fichier s_filtre.csv et renvoyé un le fichier final trié qui va s'appeler fichier_traite_opt_s.csv
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
