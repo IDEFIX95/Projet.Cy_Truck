@@ -13,11 +13,11 @@ Installation :
 
 Pour lancer la commande avec help, veuillez taper la ligne de commande suivante :
 
-      ./donnee_filtree.bash data/data.csv -h
+       ./donnee_filtree.bash data/data.csv -h
 
 Concenant le Makefile, si vous voulez supprimer tous les fichiers exécutables et .o il faut alors taper la ligne de commande suivante. Dans tous les cas, les fichiers executable et .o sont supprimés de façon automatique ; ici c'est de façon manuelle que vous supprimez : 
       
-      make -f progc/Makefile clean
+       make -f progc/Makefile clean
 
 Autres commandes de disponible (en bonus) :
 Par exemple, vous pouvez supprimer tous les fichiers .csv du dossier demo à l'aide de cette commande :
