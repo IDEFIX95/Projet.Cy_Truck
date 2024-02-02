@@ -24,7 +24,7 @@ Autres commandes de disponible (en bonus):
 
       ./donnee_filtree.bash data/data.csv -supps_fichiers_demo
 
-   Ou encore une commande pour pouvoir supprimer les fichiers temporaire de facon manuelle à l'aide de cette commande :
+   Ou encore une commande pour pouvoir supprimer les fichiers temporaire .csv se situant dans le dossier temp ( meme si ces dernieres sont supprimés automatiquement çà la fin du fichier bash) :
 
       ./donnee_filtree.bash data/data.csv -supps_fichiers_temp
 
