@@ -8,19 +8,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "filtre_s.h"
+
 #define BUFFER_SIZE 4096  // Augmenter la taille du tampon
 
 // Initialisation de la strcuture pour pouvoir 
 
-struct Statistique {
-    int id;
-    float min;
-    float max;
-    float somme;
-    int compteur;
-    float moyenne;
-    float difference;
-};
 
 int main() {
     // Ouverture du fichier d'entrée en mode lecture
