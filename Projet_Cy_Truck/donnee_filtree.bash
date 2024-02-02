@@ -339,11 +339,13 @@ EOF
 
     if [ "$i" == "-supps_fichiers_demo" ];then
         rm -f demo/*.csv
+        echo "les fichiers .csv du dossier demo ont été supprimés avec succés"
         option_oblig=$(("$option_oblig"+1))
     fi
 
     if [ "$i" == "-supps_fichiers_temp" ];then
         rm -f temp/*.csv
+        echo "les fichiers .csv du dossier temp ont été supprimés avec succés"
         option_oblig=$(("$option_oblig"+1))
     fi
 
