@@ -7,16 +7,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "etape4_triersomme.h"
+
 #define TAILLE_BUFFER 1024
 
-// Utilisation pour trier des sommes des villes
-typedef struct AVL {
-    char ville[TAILLE_BUFFER];
-    int somme;
-    struct AVL *fg;
-    struct AVL *fd;
-    int h;
-} Arbre, *pArbre;
 
 
 int max(int a, int b) {         // Retourne le maximum entre deux entiers
