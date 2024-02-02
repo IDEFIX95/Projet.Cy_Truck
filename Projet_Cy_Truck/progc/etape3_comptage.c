@@ -1,5 +1,11 @@
 // ÉTAPE 3
 
+/* Cette partie du programme va récupérer toutes les villes d'arrivée ainsi que le nombre d'apparitions de ces mêmes villes.
+    Tout d'abord, dans la fonction "ExtraireVilleDarrive()", nous extrayons la colonne des villes d'arrivée du fichier "fichier_col4.csv".
+    Ensuite, la somme des nouvelles villes rencontrées ou des villes déjà présentes dans l'arbre s'effectue à l'aide de la fonction "insertionABR()".
+    Enfin, nous utilisons un ABR pour stocker l'ensemble des villes, puis nous parcourons cet ABR à l'aide de la fonction "parcoursdecroissant()".*/
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -160,11 +166,6 @@ int main() {
     // Initialisation des arbres pour stocker les données
     pABR arbre = NULL;
     pABR arbre2 = NULL;
-
-    /* Cette partie du programme va récupérer toutes les villes d'arrivée ainsi que le nombre d'apparitions de ces mêmes villes.
-    Tout d'abord, dans la fonction "ExtraireVilleDarrive()", nous extrayons la colonne des villes d'arrivée du fichier "fichier_col4.csv".
-    Ensuite, la somme des nouvelles villes rencontrées ou des villes déjà présentes dans l'arbre s'effectue à l'aide de la fonction "insertionABR()".
-    Enfin, nous utilisons un ABR pour stocker l'ensemble des villes, puis nous parcourons cet ABR à l'aide de la fonction "parcoursdecroissant()".*/
 
     ExtraireVilleDarrive(&arbre, fichier1);
     parcoursdecroissant(arbre, fichier2);
