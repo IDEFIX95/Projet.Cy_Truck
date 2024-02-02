@@ -1,3 +1,8 @@
+// ÉTAPE 6
+
+// Ce programme permet de trier le fichier de sortie de l'étape 5 de façon décroissante par rapport au nom des villes.
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
